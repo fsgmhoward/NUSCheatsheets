@@ -1,0 +1,494 @@
+% Edited by Howard Liu
+% Original: https://github.com/ning-y/Cheatsheets/blob/master/src/cs1231-midterms-2018s1.tex
+\documentclass[a4paper]{article}
+
+\usepackage[
+    a4paper, left=1cm, right=1cm, top=1cm, bottom=1cm, landscape
+]{geometry}
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage{amsfonts}       % \mathbb
+\usepackage{amssymb}        % \nmid
+\usepackage{enumitem}       % [leftmargin=*]
+\usepackage{IEEEtrantools}
+
+\newcommand{\heading}[1]{{\small\underline{\textbf{#1}}}}
+\newcommand{\subheading}[1]{{\scriptsize\textbf{#1}}}
+
+\begin{document}
+
+\scriptsize                         % Small fonts
+\pagenumbering{gobble}              % No page numbers
+\setlength\parindent{0pt}           % No indents at start of paragraphs
+\setlength{\abovedisplayskip}{3pt}  % Less spacing before equations
+\setlength{\belowdisplayskip}{3pt}  % less spacing after equations
+
+% TITLE %
+\begin{center}
+{\large CS1231(S) Cheatsheet}\\{for Mid-term of AY 19/20 Semester 1, by Howard Liu}
+\end{center}
+
+% BODY %
+\begin{multicols*}{4}
+
+%% Preface %%
+Appendix A of Epp is not covered. Theorems, corollaries, lemmas, etc. not
+mentioned in the lecture notes are marked with an asterisk (*).\\
+
+%% Proofs %%
+\heading{Proofs} \\
+
+\subheading{Basic Notation}
+\begin{itemize}[leftmargin=*] \itemsep -0.5em
+    \item $\mathbb{R}$: the set of all real numbers
+    \item $\mathbb{Z}$: the set of integers
+    \item $\mathbb{N}$: the set of natural numbers (include $0$, i.e. $\mathbb{Z}_{\ge 0}$)
+    \item $\mathbb{Q}$: the set of rationals
+    \item $\exists$:    there exists...
+    \item $\exists!$:   there exists a unique...
+    \item $\forall$:    for all...
+    \item $\in$:        member of...
+    \item $\ni$:        such that...
+    \item $\sim$:       not ...
+\end{itemize}
+
+\subheading{Proof Types}
+\begin{itemize}[leftmargin=*] \itemsep -0.5em
+  \item \textbf{By Construction}: finding or giving a set of directions to
+    reach the statement to be proven true.
+  \item \textbf{By Contraposition}: proving a statement through its logical
+    equivalent contrapositive.
+  \item \textbf{By Contradiction}: proving that the negation of the statement
+    leads to a logical contradiction.
+  \item \textbf{By Exhaustion}: considering each case.
+  \item \textbf{By Mathematical Induction}: proving for a base case, then an
+    induction step.
+    \vspace{-1em} % hackhackhack
+    \begin{enumerate} \itemsep -0.2em
+      \item $P(a)$
+      \item $\forall k \in \mathbb{Z}, k \geq a\;(P(k) \rightarrow P(k+1))$
+      \item $\boldsymbol{\cdot} \forall n \in \mathbb{Z}, n \geq a\;(P(n))$
+    \end{enumerate}
+  \vspace{-0.5em}
+  \item \textbf{By Strong Induction}: mathematical induction assuming $P(k),
+    P(k-1), \cdots, P(a)$ are all true.
+  \item \textbf{By Structural Induction}: MI assuming $P(x)$ is true, prove
+    $P(f(x))$ is true ($f(x)$ is the recursion set rule, i.e. if $x \in S,
+    f(x) \in S$)
+\end{itemize}
+
+\subheading{Order of Operations}
+
+In the ascending order (1 executes first, 3 is the latest, can be overwritten by parenthesis)
+\begin{enumerate}
+	\item \textbf{Negation}: $\sim$ (also represented as $\neg$)
+	\item \textbf{Logic AND \& OR}: $\land$ and $\lor$
+	\item \textbf{Implication}: $\rightarrow$
+\end{enumerate}
+
+\subheading{Universal \& Existential Generalisation}\\
+\textit{`All boys wear glasses'} is written as
+  $$\forall x (\text{Boy}(x) \rightarrow \text{Glasses}(x)) $$
+If conjunction was used, this statement would be falsified by the existence of a
+`non-boy' in the domain of $x$.\\
+
+\textit{`There is a boy who wears glasses'} is written as
+  $$\exists x (\text{Boy}(x) \land \text{Glasses}(x)) $$
+If implication was used, this statement would true even if the domain of $x$ is
+empty.\\
+
+\subheading{Valid Arguments as Tautologies}\\
+All valid arguments can be \textit{restated} as tautologies.\\
+
+\subheading{Rules of Inference}\\
+Modus ponens
+\begin{eqnarray*}
+  &p \rightarrow q \\
+  &p \\
+  &\boldsymbol{\cdot}\; q
+\end{eqnarray*}
+Modus tollens
+\begin{eqnarray*}
+  &p \rightarrow q \\
+  &\sim q \\
+  &\boldsymbol{\cdot}\; \sim p
+\end{eqnarray*}
+Generalization
+\begin{eqnarray*}
+  &p\\
+  &\boldsymbol{\cdot}\; p \lor q
+\end{eqnarray*}
+Specialization
+\begin{eqnarray*}
+  &p \land q\\
+  &\boldsymbol{\cdot}\; p
+\end{eqnarray*}
+Elimination
+\begin{eqnarray*}
+  &p \lor q\\
+  &\sim q\\
+  &\boldsymbol{\cdot}\; p
+\end{eqnarray*}
+Transitivity
+\begin{eqnarray*}
+  &p \rightarrow q\\
+  &q \rightarrow r\\
+  &\boldsymbol{\cdot}\; p \rightarrow r
+\end{eqnarray*}
+Proof by Division into Cases
+\begin{eqnarray*}
+  &p \lor q\\
+  &p \rightarrow r\\
+  &q \rightarrow r\\
+  &\boldsymbol{\cdot}\; r
+\end{eqnarray*}
+Contradiction Rule
+\begin{eqnarray*}
+  &\sim p \rightarrow \textbf{c(ontradiction)}\\
+  &\boldsymbol{\cdot}\; p
+\end{eqnarray*}
+
+\subheading{Universal Rules of Inference}\\
+Only modus ponens, modus tollens, and transitivity have universal versions in
+the lecture notes.\\
+
+\subheading{Implicit Quantification}\\
+The notation $P(x) \implies Q(x)$ means that every element in the truth set of
+$P(x)$ is in the truth set of $Q(x)$, or equivalently, $\forall x, P(x)
+\rightarrow Q(x)$.\\
+
+The notation $P(x) \iff Q(x)$ means that $P(x)$ and $Q(x)$ have identical truth
+sets, or equivalently, $\forall x, P(x) \leftrightarrow Q(x)$.\\
+
+\subheading{Implication Law}\\
+$$p \rightarrow q \equiv \sim p \lor q$$
+
+\subheading{Universal Instantiation}\\
+If some property is true of everything in a set, then it is true of any
+particular thing in the set.\\
+
+\subheading{Universal Generalization}\\
+If $P(c)$ must be true, and we have assumed nothing about $c$, then $\forall x,
+P(x)$ is true.\\
+
+\subheading{Regular Induction}\\
+\begin{eqnarray*}
+  &P(0) \\
+  &\forall k \in \mathbb{N}, P(k) \rightarrow P(k+1) \\
+  & \forall
+\end{eqnarray*}
+
+\subheading{Epp T2.1.1 Logical Equivalences}\\
+Commutative Laws
+  $$ p \land q \equiv q \land p $$
+  $$ p \lor  q \equiv q \lor  p $$
+Associative Laws
+  $$ (p \land q) \land r \equiv p \land (q \land r) $$
+  $$ (p \lor  q) \lor  r \equiv p \lor  (q \lor  r) $$
+Distributive Laws
+  $$ p \land (q \lor  r) \equiv (p \land q) \lor  (p \land r) $$
+  $$ p \lor  (q \land r) \equiv (p \lor  q) \land (p \lor  r) $$
+Identity Laws
+  $$ p \land \textbf{true} \equiv p $$
+  $$ p \lor  \textbf{false} \equiv p $$
+Negation Laws
+  $$ p \lor  \sim p \equiv \textbf{true} $$
+  $$ p \land \sim p \equiv \textbf{false} $$
+Double Negative Law
+  $$ \sim ( \sim p ) \equiv p $$
+Idempotent Laws
+  $$ p \land p \equiv p $$
+  $$ p \lor  p \equiv p $$
+Universal Bound Laws
+  $$ p \lor  \textbf{true} \equiv \textbf{true} $$
+  $$ p \land \textbf{false} \equiv \textbf{false} $$
+De Morgan's Laws
+  $$ \sim ( p \land q ) \equiv \sim p \lor  \sim q $$
+  $$ \sim ( p \lor  q ) \equiv \sim p \land \sim q $$
+Absorption Laws
+  $$ p \lor  (p \land q) \equiv p $$
+  $$ p \land (p \lor  q) \equiv p $$
+Negations of $\textbf{true}$ and $\textbf{false}$
+  $$ \sim \textbf{true} \equiv \textbf{false} $$
+  $$ \sim \textbf{false} \equiv \textbf{true} $$
+
+\subheading{Definition 2.2.1 (Conditional)}\\
+If $p$ and $q$ are statement variables, the conditional of $q$ by $p$ is ``if
+$p$ then $q$" or ``$p$ implies $q$", denoted $p \rightarrow q$. It is false
+when $p$ is true and $q$ is false; otherwise it is true. We call $p$ the
+\textit{hypothesis} (or \textit{antecedent}), and $q$ the \textit{conclusion}
+(or \textit{consequent}).\\
+
+A conditional statement that is true because its hypothesis is false is called
+\textit{vacuously true} or \textit{true by default}.\\
+
+\subheading{Definition 2.2.2 (Contrapositive)}\\
+The contrapositive of $p \rightarrow q$ is $\sim q \rightarrow \sim p$. Note: one will always be equivalent to the other.\\
+
+\subheading{Definition 2.2.3 (Converse)}\\
+The converse of $p \rightarrow q$ is $q \rightarrow p$.\\
+
+\subheading{Definition 2.2.4 (Inverse)}\\
+The inverse of $p \rightarrow q$ is $\sim p \rightarrow \sim q$.\\
+
+\subheading{Definition 2.2.6 (Biconditional)}\\
+The biconditional of $p$ and $q$ is denoted $p \leftrightarrow q$ and is true if
+both $p$ and $q$ have the same truth values, and is false if $p$ and $q$ have
+opposite truth values.\\
+
+\subheading{Definition 2.2.7 (Necessary \& Sufficient)}\\
+``$r$ is sufficient for $s$" means $r \rightarrow s$, ``$r$ is necessary for
+$s$" means $\sim r \rightarrow \sim s$ or equivalently $s \rightarrow r$.\\
+
+\subheading{Definition 2.3.2 (Sound \& Unsound Arguments)}\\
+An argument is called \textit{sound}, iff it is valid and all its premises are
+true.\\
+
+\subheading{Definition 3.1.2 (Universal Statement)}\\
+A \textit{universal statement} is of the form $$\forall x \in D, Q(x)$$ It is
+defined to be true iff $Q(x)$ is true for every $x$ in $D$. It is defined to be
+false iff $Q(x)$ is false for at least one $x$ in D.\\
+
+\subheading{Definition 3.1.3 (Existential Statement)}\\
+A \textit{existential statement} is of the form $$\exists x \in D \text{ s.t. }
+Q(x)$$ It is defined to be true iff $Q(x)$ is true for at least one $x$ in $D$.
+It is defined to be false iff $Q(x)$ is false for all $x$ in $D$.\\
+
+\subheading{Theorem 3.1.6 (Equivalent Forms of Universal and Existential State.)}\\
+By narrowing $\mathcal{U}$ to be the domain $D$ consisting of all values of the variable $x$ that makes $P(x)$ \textbf{true},
+  $$ \forall_{x \in \mathcal{U}}, P(x) \implies Q(x) \equiv \forall_{x \in D}, Q(x) $$
+Similarly,
+  $$ \exists x \text{ s.t. } P(x) \land Q(x) \equiv \exists x \in D \text{ s.t. } Q(x) $$
+
+\subheading{Theorem 3.2.1 (Negation of Universal State.)}\\
+The negation of a statement of the form $$\forall x \in D, P(x)$$ is logically
+equivalent to a statement of the form $$\exists x \in D \text{ s.t. } \sim
+P(x)$$
+
+\subheading{Theorem 3.2.2 (Negation of Existential State.)}\\
+The negation of a statement of the form 
+  $$\exists x \in D \text{ s.t. } P(x)$$
+is logically equivalent to a statement of the form
+  $$\forall x \in D, \sim P(x)$$
+Note: for negation of $\exists!$, consider
+  $$\exists! x \text{ s.t. } P(x) \equiv \exists x \text{ s.t. } (P(x) \land (\forall_{y \in \mathcal{U}} P(y) \rightarrow (y=x)) $$
+
+\subheading{Theorem 3.2.4 (Vacuous Truth of Universal State.)}\\
+In general, a statement of the form
+  $$\forall_{x \in D}, P(x) \rightarrow Q(x) $$
+is called \textbf{vacuously true/true by default} iff $P(x)$ is \textbf{false} for every $x$ in $D$\\
+
+\heading{Sets} \\
+
+\subheading{Definition 6.1.1 (Subsets \& Supersets)}
+
+$S$ is a subset of $T$ if all the elements of $S$ are elements of $T$, denoted
+$S \subseteq T$. Formally, $$S \subseteq T \longleftrightarrow \forall x \in S
+(x \in T)$$
+
+\subheading{Definition 6.2.1 (Empty Set)}
+
+An empty set has no element, and is denoted $\varnothing$ or $\{\}$. Formally,
+where $\mathcal{U}$ is the universal set: $$\forall Y \in \mathcal{U} (Y \not\in
+\varnothing)$$
+
+\subheading{Epp T6.24}
+
+An empty set is a subset of all sets.
+$$\forall S\text{, $S$ is a set, }\varnothing \subseteq S$$
+
+\subheading{Definition 6.2.2 (Set Equality)}
+
+Two sets are equal iff they have the same elements.\\
+
+\subheading{Proposition 6.2.3}
+
+For any two sets $X, Y$, $X$ and $Y$ are subsets of each other iff $X = Y$.
+Formally,
+$$\forall X, Y((X \subseteq Y \land Y \subseteq X) \longleftrightarrow X=Y)$$
+
+\subheading{Epp C6.2.5 (Empty Set is Unique)}
+
+It's what it says.\\
+
+\subheading{Definition 6.2.4 (Power Set)}
+
+The power set of a set $S$ denoted $\mathcal{P}(S)$, or $2^S$; is the set whose
+elements are all possible subsets of $S$. Formally,
+$$\mathcal{P}(S) = \{X\;|\;X\subseteq S\}$$
+
+\subheading{Theorem 6.3.1}
+
+If a set $X$ has $n$ elements, $n \geq 0$, then $\mathcal{P}(X)$ has $2^n$
+elements. \\
+
+\subheading{Definition 6.3.1 (Union)}
+
+Let $S$ be a set of sets. $T$ is the union of sets in $S$, iff each element of
+$T$ belongs to some set in $S$. Formally,
+$$T=\bigcup S = \bigcup_{X\in S} X = \{ y \in \mathcal{U}\;|\;\exists X \in S (y
+\in X)\}$$
+
+\subheading{Definition 6.3.3 (Intersection)}
+
+Let $S$ be a non-empty set of sets. $T$ is the intersection of sets in $S$, iff
+each element of $T$ also belongs to all the sets in $S$. Formally,
+\begin{align*}
+T &= \bigcap S = \bigcap_{X \in S} X \\
+&= \{y \in \mathcal{U}\;|\; \forall X ((X \in S) \rightarrow (y \in X)) \}
+\end{align*}
+
+\subheading{Definition 6.3.5 (Disjoint)}
+
+Let $S, T$ be sets. $S$ and $T$ are disjoint iff $S \cap T = \varnothing$.\\
+
+\subheading{Definition 6.3.6 (Mutually Disjoint)}
+
+Let $V$ be a set of sets. The sets $T \in V$ are mutually disjoint iff every two
+distinct sets are disjoint. Formally,
+$$\forall X, Y \in V (X \neq Y \rightarrow X \cap Y = \varnothing)$$
+
+\subheading{Definition 6.3.7 (Partition)}
+
+Let $S$ be a set, and $V$ a set of non-empty subsets of $S$. Then $V$ is a
+partition of $S$ iff
+\begin{enumerate} \itemsep -0.5em
+	\item The sets in $V$ are mutually disjoint
+	\item The union of sets in $V$ equals $S$
+\end{enumerate}
+
+\subheading{Definition 6.3.8 (Non-symmetric Difference)}
+
+Let $S, T$ be two sets. The (non-symmetric) difference of $S$ and $T$ denoted
+$S-T$ or $S\setminus T$ is the set whose elements belong to $S$ and do not
+belong to $T$. Formally,
+$$S - T = \{y \in \mathcal{U}\;|\;y \in S \land y \not\in T \}$$
+This is analogous to subtraction for numbers.\\
+
+\subheading{Definition 6.3.10 (Set Complement)}
+
+Let $A \subseteq \mathcal{U}$. Then, the complement of A denoted $\overline{A}$ is
+$\mathcal{U}-A$.\\
+
+\subheading{Set Properties}
+
+Let $A, B, C$ be sets, some properties are:
+\begin{itemize}[leftmargin=*] \itemsep -0.3em
+	\item $\bigcup \varnothing = \bigcup_{A \in \varnothing} A = \varnothing$
+	\item $\bigcup \{A\} = A$
+	\item \textbf{Commutative Laws}: $A \cup B = B \cup A$, $A \cap B = B \cap A$
+	\item \textbf{Associative Laws}: $A \cup (B \cup C) = (A \cup B) \cup C$, $A \cap (B \cap C) = (A \cap B) \cap C$
+	\item \textbf{Distributive Laws}: $A \cap (B \cup C) = (A \cap B) \cup (A \cap C)$, $A \cup (B \cap C) = (A \cup B) \cap (A \cup C)$
+	\item \textbf{Identity Laws}: $A \cup \varnothing = A$,  $A \cap \mathcal{U} = A$
+	\item \textbf{Complement Laws}: $A \cup \overline{A} = \mathcal{U}$, $A \cap \overline{A} = \varnothing$
+	\item \textbf{Double Complement Law}: $\overline{(\overline{A})} = A$
+	\item \textbf{Idempotent Laws}: $A \cup A = A$, $A \cap A = A$
+	\item \textbf{Universal Bound Laws}: $A \cup \mathcal{U} = \mathcal{U}$, $A \cap \varnothing = \varnothing$
+	\item \textbf{De Morgan's Laws}: $\overline{A \cup B} = \overline{A} \cap \overline{B}$, $\overline{A \cap B} = \overline{A} \cup \overline{B}$
+	\item \textbf{Adsorption Laws}: $A \cup (A \cap B) = A$, $A \cap (A \cup B) = A$
+	\item \textbf{Set Difference Law}: $A - B = A \cap \overline{B}$
+	\item $\overline{\mathcal{U}} = \varnothing$, $\overline{\varnothing} = \mathcal{U}$
+	\item $A \subseteq B \leftrightarrow A \cup B = B \leftrightarrow A \cap B = A$
+\end{itemize}
+
+
+\heading{Functions} \\
+
+\subheading{Definition 7.1.1 (Function)}
+
+Let $f$ be a relation such that $f \subseteq S \times T$. Then $f$ is a function
+from $S$ to $T$ denoted $f: S\rightarrow T$ iff
+$$\forall x \in S, \exists! y \in T(x\;f\;y)$$
+(Intuitively, this means that every element in $S$ must have exactly one
+`outgoing arrow', \textbf{AND} the `arrow' must land in $T$.)\\
+
+\subheading{Definitions 7.1.[2-5]}
+
+Let $f : S \rightarrow T$ be a function, $x \in S$ and $y \in T$ such that
+$f(x)=y$; $U \subseteq S$, and $V \subseteq T$.\\
+
+$x$ is a pre-image (7.1.2) of $y$.\\
+
+The inverse image of the element (7.1.3) $y$ is the set of all its pre-images,
+i.e. $\{x \in S\;|\;f(x) = y\}$.\\
+
+The inverse image of the set (7.1.4) $V$ is the set that contains all the
+pre-images of all the elements of $V$, i.e.
+$\{x \in S\;|\;\exists y \in V (f(x) = y)\}$.\\
+
+The restriction (7.1.5) of $f$ to $U$ is the set
+$\{(x, y) \in U \times T\;|\;f(x)=y\}$.\\
+
+\subheading{Definition 7.2.1 (Injective, or One-to-one)}
+
+Let $f : S \rightarrow T$ be a function. $f$ is injective (or one-to-one) iff
+$$\forall y \in T, \forall x_1, x_2 \in S (
+(f(x_1) = y\;\land\;f(x_2) = y) \rightarrow x_1 = x_2)$$
+(Intuitively, this means that every element in $T$ has \textbf{at most} one `incoming
+arrow'.)\\
+
+\subheading{Definition 7.2.2 (Surjective, or Onto)}
+
+Let $f : S \rightarrow T$ be a function. $f$ is surjective (or onto) iff
+$$\forall y \in T, \exists x \in S (f(x) = y)$$
+(Intuitively, this means that every element in $T$ has \textbf{at least} one `incoming
+arrow'.)\\
+
+\subheading{Definition 7.2.3 (Bijective)}
+
+A function is bijective (or is a bijection) iff it is injective and
+subjective.\\
+(Intuitively, this means that every element in $T$ has exactly one
+incoming arrow.)\\
+
+\subheading{Definition 7.2.4 (Inverse)}
+
+Let $f : S \rightarrow T$ be a function and let $f^{-1}$ be the inverse relation
+of $f$ from $T$ to $S$. Then $f$ is bijective iff $f^{-1}$ is a function.\\
+(Note: $f^{-1}$ is defined but not necessary a function. When $A \subseteq T$, $f^{-1}(A)$ means finding all the preimages of each image in $A$, and this is not a function if the $f$ is not bijective.)\\
+
+\subheading{Definition 7.3.1 (Composition)}
+
+Let $f : S \rightarrow T$, $g: T \rightarrow U$ be functions. The composition of
+$f$ and $g$ denoted $g \circ f$ is a function from $S$ to $U$.\\
+
+\subheading{Definition 7.3.2 (Identity)}
+
+The identity function on a set $A$, $\mathcal{I}_A$ is defined by,
+$$\forall x \in A(\mathcal{I}_A(x) = x)$$
+
+\subheading{Proposition 7.3.3}
+
+Let $f : A \rightarrow A$ be an injective function of A. Then $f^{-1} \circ f =
+\mathcal{I}_A$.\\
+
+\subheading{Inclusive Map}
+
+Let $B$ be a subset of A. Then function $\iota^A_B: B \rightarrow A; b \mapsto b$ is called the \textbf{inclusive map} of $B$ in $A$
+
+\subheading{Equality of Functions}
+Two functions $f$ and $g$ are \textbf{equal}, denoted $f = g$, iff:
+\begin{itemize}
+	\item the domains of $f$ and $g$ are equal;
+	\item the codomains of $f$ and $g$ are equal;
+	\item $f(x) = g(x)$ for all $x$ in their domains
+\end{itemize}
+
+\subheading{Properties of Composite Functions}
+
+Let $f: A \rightarrow B, g: B \rightarrow C \text{ and } h: C \rightarrow D$ to be functions. Then
+\begin{itemize}
+	\item $h \circ (g \circ f) = (h \circ g) \circ f$
+	\item If $f$ and $g$ are injective, $g \circ f$ is injective.
+	\item If $f$ and $g$ are surjective, $g \circ f$ is surjective.
+	\item If $g \circ f$ is injective, then $f$ is injective.
+	\item If $g \circ f$ is surjective, then $g$ is surjective.
+\end{itemize}
+
+\subheading{Cantor-Bernstein Theorem}
+
+Let  $f: A \rightarrow B, g: B \rightarrow A$ be injective functions. Then there exists a bijective function $h: A \rightarrow B$
+
+
+\end{multicols*}
+\end{document}

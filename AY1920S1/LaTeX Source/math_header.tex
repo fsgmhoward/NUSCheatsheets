@@ -1,0 +1,54 @@
+% Format inherited from <MA1101R Cheatsheet 17/18 Sem 1 Finals>
+% Original document is by Lee Yiyuan and Eugene Lim
+% -------------------------------------------------------------
+\usepackage{amssymb,amsmath,amsthm,amsfonts,bm,xcolor,enumitem,graphicx,overpic}
+\usepackage{listings}
+\usepackage{IEEEtrantools}
+\usepackage{physics}
+\usepackage{multicol,multirow}
+\usepackage{calc}
+\usepackage{ifthen}
+\usepackage[colorlinks=true,citecolor=blue,linkcolor=blue]{hyperref}
+\usepackage{ragged2e}
+
+\geometry{top=.2in,left=.2in,right=.2in,bottom=.2in,a4paper}
+\pagestyle{empty}
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%x
+                                {\normalfont\large\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+                                {-1explus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\normalsize\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {1ex plus .2ex}%
+                                {\normalfont\small\bfseries}}
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+	\hskip -\arraycolsep
+	\let\@ifnextchar\new@ifnextchar
+	\array{#1}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+
+\newcommand{\matr}[1]{\bm{#1}}
+\newcommand{\vect}[1]{\bm{#1}}
+\newcommand{\adj}{\operatorname{\textbf{adj}}}
+\newcommand{\lspan}{\operatorname{span}}
+%\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\nullity}{\operatorname{nullity}}
+\newcommand{\Ker}{\operatorname{Ker}}
+%\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+\DeclareMathOperator{\rref}{rref}
+
+\theoremstyle{definition}
+\newcommand{\thistheoremname}{}
+\newtheorem*{genericthm*}{\thistheoremname}
+\newenvironment{namedthm*}[1]
+{\renewcommand{\thistheoremname}{#1}\begin{genericthm*}}
+{\end{genericthm*}}

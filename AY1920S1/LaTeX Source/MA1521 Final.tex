@@ -1,0 +1,371 @@
+\documentclass[10pt,landscape]{article}
+\usepackage[landscape]{geometry}
+\input{math_header}
+
+% Format inherited from <MA1101R Cheatsheet 17/18 Sem 1 Finals>
+% Original document is by Tysng
+% Original link: https://github.com/tysng/ma1521-cheatsheet
+% PDE Removed given it is not examinable for 1920S1
+
+% Turn off header and footer
+\pagestyle{empty}
+
+% Redefine section commands to use less space
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%x
+                                {\normalfont\large\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+                                {-1explus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\normalsize\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {1ex plus .2ex}%
+                                {\normalfont\small\bfseries}}
+\makeatother
+
+% Define BibTeX command
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+% print only section numbers
+\setcounter{secnumdepth}{1}
+
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+
+%My Environments
+\newtheorem{example}[section]{Example}
+
+
+% -----------------------------------------------------------------------
+
+\begin{document}
+\raggedright
+\footnotesize
+\begin{multicols}{3}
+
+
+% multicol parameters
+% These lengths are set only within the two main columns
+%\setlength{\columnseprule}{0.25pt}
+\setlength{\premulticols}{1pt}
+\setlength{\postmulticols}{1pt}
+\setlength{\multicolsep}{1pt}
+\setlength{\columnsep}{2pt}
+
+\begin{flushleft}
+\large{
+    \underline{MA1521 Cheat Sheet} \\
+    \texttt{by Howard Liu based on versions of Tysng} \\
+    AY2019/20 Semester 1}
+\end{flushleft}
+
+% ------------------------------ACTUAL CONTENT-----------------------------------
+
+\section{MF26 Magic}
+
+\subsection{Trigo}
+\begin{gather*}
+   \sin (A \pm B) = \sin A \cos B \pm \cos A \sin B \\
+   \cos (A \pm B) = \cos A \cos B \mp \sin A \sin B \\
+   \tan (A \pm B) = \frac{\tan A \pm \tan B}{1 \mp \tan A \tan B} \\
+   \sin 2A = 2 \sin A \cos A \\
+   \cos 2A = \cos ^ 2 A - \sin ^ 2 A = 2\cos^2A - 1 = 1 - 2\sin^2A \\
+   \tan 2A = \frac{2 \tan A}{1- \tan^2 A} \\
+   \sin P + \sin Q = 2 \sin \frac{1}{2} (P + Q) \cos \frac{1}{2} (P - Q) \\
+   \sin P - \sin Q = 2 \cos \frac{1}{2} (P + Q) \sin \frac{1}{2} (P - Q) \\
+   \cos P + \cos Q = 2 \cos \frac{1}{2} (P + Q) \cos \frac{1}{2} (P - Q) \\
+   \cos P - \cos Q = -2 \sin \frac{1}{2} (P + Q) \sin \frac{1}{2} (P - Q) \\
+   \frac{\sin A}{a} = \frac{\sin B}{b} = \frac{\sin C}{c} \\
+   a^2 =  b^2 + c^2 - 2bc \cos A
+\end{gather*}
+
+\subsection{Derivatives}
+\begin{gather*}
+   \frac{d}{dx} \sin ^{-1} x = \frac{1}{\sqrt{1-x^2}} \\
+   \frac{d}{dx} \cos ^{-1} x = -\frac{1}{\sqrt{1-x^2}} \\
+   \frac{d}{dx} \tan ^{-1} x = \frac{1}{1+x^2} \\
+   \frac{d}{dx} \csc x = - \csc x \cot x \\
+   \frac{d}{dx} \sec x = \sec x \tan x \\
+   \frac{d}{dx} \tan x = \sec^2 x \\
+   \frac{d}{dx} \cot x = -\csc^2 x
+\end{gather*}
+
+\subsection{Integrals}
+Take note of the absolute sign, and always remember to $+c$
+\begin{gather*}
+   \int \frac{1}{x^2 + a^2} dx = \frac{1}{a} \tan ^{-1} (\frac{x}{a}) + c \\ 
+   \int \frac{1}{\sqrt{a^2 - x^2}} dx = \sin ^{-1} (\frac{x}{a}) + c \\ 
+   \int \frac{1}{x} dx = \ln \abs{x} + c \\
+   \int \frac{x}{\sqrt{a^2 - x^2}} dx = -\sqrt{a^2 - x^2} + c \\
+   \int x^n e^x dx = x^n e^x - n x^{n-1} e^x + n (n-1) x^{n-2}e^x - \dots \pm n! e^x + c
+\end{gather*}
+
+
+\section{Basics}
+\subsection{Extreme Values}
+Points where $f$ can have an extreme value:
+\begin{itemize}
+   \item Interior point where $f'(x) = 0$
+   \item Interior points where $f'(x)$ doesn't exist
+   \item End points of the domain of $f$
+\end{itemize}
+
+\subsection{L'Hospital's Rule}
+The $\frac{0}{0}$ form: (1) $f$ and $g$ are differentiable in a neighborhood of $x_0$, 
+(2) $f(x_0) = g(x_0) = 0$, (3) $g'(x) \neq 0$ except possibly at $x_0$
+\begin{gather*}
+   \lim_{x\to x_0} \frac{f(x)}{g(x)} = \lim_{x\to x_0} \frac{f'(x)}{g'(x)}
+\end{gather*}
+E.g. $\lim_{x\to 0} \frac{3x - \sin x }{x} = \frac{3-\cos x }{1} \rvert_{x = 0} = 2$
+
+The $\frac{\infty}{\infty}$ form: when $x \to a$, $f(x), g(x) \to \infty$,
+and both differentiable,
+\begin{gather*}
+   \lim_{x\to a} \frac{f(x)}{g(x)} = \lim_{x\to a} \frac{f'(x)}{g'(x)}
+\end{gather*}
+
+Else, change to these two forms. (e.g $\lim_{x\to 0^+} x \cot x = \lim_{x\to 0^+} \frac{x}{\tan x} 
+= \lim_{x\to 0^+} \frac{1}{\sec^2 x} = 1$ )
+
+\subsection{Fundamental Theorem of Calculus}
+\begin{gather*}
+   \frac{d}{d\Box} \int_{c}^{\Box} f(t) dt = f(\Box)
+\end{gather*}
+
+
+\section{Series}
+\subsection{Geometric Series}
+Sum: $S_n = a \frac{1-r^n}{1-r}$, $r\neq 1$
+
+Ratio test: $\lim_{n\to\infty} = \abs{\frac{a_{n+1}}{a_n}} = \rho$; 
+\begin{enumerate}
+   \item $\rho < 1$: converge; 
+   \item $\rho > 1$: diverge;
+   \item $\rho = 1$, no conclusion;
+\end{enumerate}
+For convergent series: $S_n \to \frac{a}{1-r}$
+
+\subsection{Power Series}
+$\sum_{n = 0}^{\infty} c_n(x-a)^n = c_0 + c_1(x-a) + c_2(x-a)^2 + \ldots + c_n(x-a)^n + \ldots$, where $a$ is the center of the power series
+
+Convergence: $n\to\infty, S_n \to k$
+\begin{enumerate}
+   \item $\sum c_n(x-a)^n$ converges at $x=a$ and diverges elsewhere
+   \item $h \in \mathbb{Z}$ that the series only converges in $(a-h, a + h)$
+   \item converges for every $x$
+\end{enumerate}
+
+\subsection{Finding Radius of Convergence}
+Apply ratio test and find
+\begin{gather*}
+   M = \lim_{n\to\infty} \abs{\frac{u_{n+1}}{u_n}}
+   M < 1
+\end{gather*}
+and transform it to the form of $\abs{x-a} < b$; $a$ is the center, $b$ is the RoC
+
+Or, if the series converges for all $x$, the RoC is $\infty$; if it only converges at $a$, the RoC is 0;
+
+Some magic:
+\begin{gather*}
+   \frac{1}{1-\Box} = \sum_{n = 0 }^{\infty} \Box^n, \abs{\Box} < 1
+\end{gather*}
+
+
+\subsection{Taylor Series}
+of $f$ at $a$:
+\begin{gather*}
+   \sum_{k=0}^{\infty} \frac{f^{(k)}(a)}{k!} (x-a)^k = f(a) + f'(a)(x-a) + \ldots \\
+   + \frac{f^{(n)}(a)}{n!} (x-a)^n +\ldots \\
+   e^x = \sum_{n=0}^{\infty} \frac{x^n}{n!} \\
+   \sin x = \sum_{n=0}^{\infty} \frac{(-1)^n x ^{2n+1}}{(2n+1)!} \\
+   \cos x = \sum_{n=0}^{\infty} \frac{(-1)^n x ^{2n}}{(2n)!} \\
+   \ln (1+x )= \sum_{n=1}^{\infty} \frac{(-1)^{n-1}x^n}{n} \\
+   \tan^{-1} x = \sum_{n=0}^{\infty} \frac{(-1)^n x^{2n+1}}{2n+1}
+\end{gather*}
+
+\subsection{Finding a specific high order derivative}
+\begin{enumerate}
+   \item given $\int f dx$
+   \item evaluate f in polynomial form and integrate the polynomial form
+   \item Compare the coefficient with the item that contains $f^{(100)}(0)$ in the Taylor expansion
+\end{enumerate}
+
+\subsection{Rules of Series}
+\begin{gather*}
+   \int \sum_{n=0}^{\infty} \Box dx = \sum_{n=0}^{\infty} \int \Box dx \\
+   \frac{d}{dx} \sum_{n=0}^{\infty} \Box = \sum_{n=0}^{\infty} \frac{d}{dx} \Box \\
+   x^k e^x = x^k \sum_{n=0}^{\infty} \frac{x^n}{n!} = \sum_{n=0}^{\infty} \frac{x^{n+k}}{n!} \text{ (Note: $x^k$ is a constant in the series)}
+\end{gather*}
+
+
+\section{Vectors}
+Angle between two vectors: $\cos \theta = \frac{x_1 x_2 + y_1 y_2 + z_1 z_2}{\norm{\vec{v_1}} \norm{\vec{v_2}}}$ \\
+
+Perpendicular vectors: $\vec{v_1} \cdot \vec{v_2} = 0$
+
+
+\section{Partial Differentiation}
+\begin{gather*}
+f_{xy} (a,b) = f_{yx} (a,b) \\
+\frac{dz}{dt} = \frac{\partial f}{\partial x} \frac{dx}{dt} + \frac{\partial f}{\partial y} \frac{dy}{dt} \\
+\end{gather*}
+
+\subsection{Directional Derivative}
+For \textbf{unit vector} $u = u_1 \vec{i} + u_2 \vec{j}$, we have:
+
+$$D_{\vec{u}}f(a,b) = f_x(a, b) \cdot u_1 + f_y(a,b) \cdot u_2$$
+
+Gradient Vector: 
+
+$$\nabla f = f_x \vec{i} + f_y \vec{j}$$
+
+Relation between $D_{\vec{u}}f(a,b)$ and $\nabla f$:
+
+$$D_{\vec{u}}f(a,b) = \nabla f(a,b) \cdot \vec{u} = \norm{\nabla f(a,b)} \cos \theta$$
+
+Some characteristics:
+\begin{itemize}
+	\item $f$ increases most rapidly in $\nabla f(a,b)$ and decreases most rapidly in $ -\nabla f(a,b)$.
+	\item Max value of $D_{\vec{u}}f(a,b) = \norm{\nabla f(a,b)}$ when $\vec{u}$ and $\nabla f$ in the same direction, since $\cos \theta = 0$
+	\item Increment in $f$ (approx.): $\Delta f \approx [D_{\vec{u}} f(\vec{p})] (\Delta t)$, where $p$ is the point to measure the increment and $u$ is the unit vector of direction.
+\end{itemize}
+
+\subsection{Finding $D_{\vec{u}}f$}
+\begin{enumerate}
+   \item Find the direction $\vec{p}$
+   \item Find the unit vector $\vec{u} = \frac{\vec{p}}{\norm{\vec{p}}}$
+   \item Find $\nabla f$, then find $D_{\vec{u}} f = \nabla f \cdot \vec{u}$
+\end{enumerate}
+
+\subsection{Critical Points}
+A point of $f$ that satisfies either is a critical point:
+\begin{enumerate}
+   \item $f_x (a,b) = 0$ and $f_y(a,b) = 0$
+   \item $f_x (a,b)$ or $f_y(a,b)$ doesn't exist
+\end{enumerate}
+
+Perform Second Derivative Test: let $f_x(a,b) = 0$ and $f_y(a,b) = 0$
+$$ D = f_{xx}(a,b) f_{yy} (a,b) - f_{xy} (a,b)^2 $$
+
+\begin{itemize}
+   \item $D > 0, f_{xx} >0$, f has a local minimum at (a,b)
+   \item $D > 0, f_{xx} <0$, f has a local maximum at (a,b)
+   \item $D < 0$, f has a saddle point at (a,b)
+   \item $D = 0$, no conclusion
+\end{itemize}
+
+
+\section{Double Integrals}
+For a region $R$ s.t. $a \leq x \leq b$ and $c \leq y \leq d$, volume is given by:
+\begin{gather*}
+\int\!\int_R\! f(x, y)\, \mathrm{d}A = \int_c^d\!\int_a^b\! f(x, y)\, \mathrm{d}x \mathrm{d}y = \int_a^b\!\int_c^d\! f(x, y)\, \mathrm{d}y \mathrm{d}x
+\end{gather*}
+if $f(x, y) = g(x)h(y)$,
+then $$\int\!\int_R f(x,y) \, \mathrm{d}A = (\int_a^b\!g(x)\, \mathrm{d}x) (\int_c^d\!h(y)\, \mathrm{d}y)$$
+
+\subsection{Rectangular Regions}
+Express horizontal/vertical bounds as a function $g(x)$ or $h(y)$ \\
+Type A(top and bottom are curves)
+$$
+\int_a^b\!
+\left [
+\int_{g_1(x)}^{g_2(x)}\!f(x, y)\, \mathrm{d}y
+\right ] \mathrm{d}x $$
+Type B(left and right are curves) $$\int_c^d\!
+\left [
+\int_{h_1(y)}^{h_2(y)}\!f(x, y)\, \mathrm{d}x
+\right ] \mathrm{d}y$$
+
+\subsection{Polar Coordinates}
+$R$: $a \leq r \leq b$, $\alpha \leq \theta \leq \beta$
+$$
+\int\!\int_R\! f(x, y)\, \mathrm{d}A = 
+\int_\alpha^\beta\!\int_a^b\!f(r\cos\theta, r\sin\theta)r\, \mathrm{d}r\mathrm{d}\theta
+$$
+
+\subsection{Surface Area}
+$$S = \int\!\int_R\! \sqrt{(\frac{\partial z}{\partial x})^2 + (\frac{\partial z}{\partial y})^2 + 1 }\, \mathrm{d}A$$
+
+
+\section{Ordinary Differential Equation}
+\subsection{Separable Equations}
+\begin{gather*}
+   M(x) - N(y) y' = 0 \implies \int M(x) dx = \int N(y) dy + c
+\end{gather*}
+
+\subsection{Reduction to Separable Form}
+Let $v = y / x \implies y = xv \rightarrow y' = v + xv'$, transform equations of $y' = g(\frac{y}{x})$ 
+to $v + xv' = g(v) $ such that
+\begin{gather*}
+   \frac{dv}{g(v) - v} = \frac{dx}{x}
+\end{gather*}
+Similarly, $y' = f(ax + by + c)$ can be solved by $u = ax + by + c$
+
+\subsection{Linear First Order ODE}
+To solve $y' + Py = Q$: find integration factor 
+$$R = e^{\int P dx}$$
+Then, answer $$y = \frac{1}{R} \int RQ dx$$
+
+\subsection{Reduction to Linear Form}
+A Bernoulli equation: $y' + P(x)y = Q(x) y^n$, where $n \in \mathbb{R}$; \\ 
+(When $n = -1$, try Reduction to Separable Form)
+To solve it, let $v = y^{1-n}$; \\ 
+Find and express $dv / dx$ in $dy / dx$; find $dy/dx$ and sub that in original equation; transform into 
+$$v' + (1 - n)Pv = Q(1-n)$$
+and solve the linear ODE.
+
+
+\subsection{Homogeneous Linear Second Order DE}
+For $y'' + a y' + by = 0$, the characteristic equation is $\lambda^2 + a \lambda + b = 0$
+
+Find $\Delta = a ^2 -4b$:
+
+\begin{enumerate}
+   \item $\Delta > 0$, $y = c_1e^{\lambda_1x} + c_2e^{\lambda_2x}$
+   \item $\Delta = 0$, $y = (c_1 + c_2 x) e^{-\frac{ax}{2}} $
+   \item $\Delta < 0$, it has two complex roots;$ \lambda_1 = \alpha + \beta i, \lambda_2 = \alpha -\beta i$; $y = c_1 e^{\alpha x} \cos \beta x + c_2 e^{\alpha x} \sin \beta x$
+\end{enumerate}
+where,
+\begin{gather*}
+   \lambda_1 = \frac{1}{2} (-a+\sqrt{a^2-4b}) \\
+   \lambda_2 = \frac{1}{2} (-a-\sqrt{a^2-4b})
+\end{gather*}
+
+
+\section{Modelling}
+\subsection{Population Growth}
+Malthus's Model: not an accurate representation
+\begin{gather*}
+   \frac{dN}{dt} = kN, k = B - D \\
+   N(t) = N_0 e^{kt} 
+\end{gather*}
+
+\subsection{Logistic Model}
+Let $D = sN$, where $s$ is a constant and $B$ is birth rate per capita:
+$$ \frac{dN}{dt} = BN - DN = BN - sN^2 $$
+
+The curve approaches carrying capacity $N = B/S$; point of inflection is at $N = B/2s$
+
+$$ N = \frac{N_{\infty}}{1 + (\frac{N_{\infty}}{N_0} - 1) e^{-Bt}}, N_{\infty} = \frac{B}{s} $$
+
+\subsection{Harvesting}
+Let $E$ is fish caught per year, similar to the above model:
+$$\frac{dN}{dt} = BN - sN^2 - E$$
+
+Desirable result: $E < \frac{B^2}{4s}$, approaches the second root $\beta_2 = \frac{B + \sqrt{B^2 - 4Es}}{2s}$, when $\frac{dN}{dt} = 0$ 
+
+\subsection{Strategies}
+\begin{itemize}
+   \item When given $dx/dt$, find $x$ that $dx/dt = 0$, draw out the axis, determine the sign of $dx/dt$ within
+      each region, and find the flow (+ to the right, - to the left)
+   \item To find E, draw the graph without E and find the line of symmetry; use the product of the roots to find E;
+\end{itemize}
+
+\end{multicols}
+\end{document}
+

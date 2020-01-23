@@ -1,0 +1,282 @@
+\documentclass[11pt,landscape]{article}
+\input{math_header}
+
+% Format inherited from <MA1101R Cheatsheet 17/18 Sem 1 Finals>
+% Original document is by Lee Yiyuan and Eugene Lim
+% -----------------------------------------------------------------------
+
+\title{MA1101R Cheatsheet 19/20 Semester 1 Mid-term}
+
+\begin{document}
+
+\begin{center}
+{\large MA1101R Cheatsheet 19/20 Semester 1 Mid-term}\\{by Howard Liu}
+\end{center}
+
+\footnotesize
+
+\begin{multicols}{2}
+\begin{justifying}
+
+\setlength{\premulticols}{1pt}
+\setlength{\postmulticols}{1pt}
+\setlength{\multicolsep}{1pt}
+\setlength{\columnsep}{2pt}
+
+\section{Matrices}
+
+\begin{namedthm*}{Theorem 1.2.7}
+	If \textbf{augmented matrices} of two systems of linear equations are row equivalent, then the two systems have the same set of solutions. (\(\ast\) Even for two homogeneous linear systems, we still need to say that \(\begin{pmatrix}[c|c]\matr{A} & \matr{0}\end{pmatrix}\) is row equivalent to \(\begin{pmatrix}[c|c]\matr{B} & \matr{0}\end{pmatrix}\), not that \(\matr{A}\) is row equivalent to \(\matr{B}\).)
+\end{namedthm*}
+
+\begin{namedthm*}{Example 1.4.10}
+	Suppose augmented matrix \(\matr{R}\) is in (R)REF:
+	\begin{enumerate}
+		\item LS has no solution \\
+		    \(\iff\) Last column of \(\matr{R}\) is pivot.
+		\item LS has one unique solution \\
+		    \(\iff\) \textbf{Only} last column of \(\matr{R}\) is non-pivot.
+		\item LS has infinite number of solution \\
+		    \(\iff\) At least one column other than the last one is non-pivot \\
+		    \(\iff\) Number of variables $>$ Number of non-zero rows in \(\matr{R}\) \\
+		(\(\ast\) \# non-pivot columns in (R)REF \(- 1 =\) \# unique solutions)
+	\end{enumerate}
+\end{namedthm*}
+
+\begin{namedthm*}{Definition 2.3.2, Theorem 2.4.7 \& 2.5.19} %TODO: Theorem in chap.4 is included, take down the theorem number in the next version
+	\(\matr{A}\) is invertible when:
+	\begin{enumerate}
+		\item \(\exists \matr{B}\) s.t. \(\matr{AB} = \matr{I} \lor \matr{BA} = \matr{I}\)
+		\item Refer to \(\textbf{Theorem 2.4.7.2}\) below
+		\item \(\rref(\matr{A}) = \matr{I}\)
+		\item \(\det(\matr{A}) \ne 0\)
+		\item \(\matr{A}\) is a product of elementary matrices
+		\item Rows of \(\matr{A}\) is a basis of \(\mathbb{R}^n\)
+		\item Columns of \(\matr{A}\) is a basis of \(\mathbb{R}^n\)
+	\end{enumerate} 
+\end{namedthm*}
+
+\begin{namedthm*}{Remark 2.3.4 (Cancellation Laws for Matrices)}
+	Let \(\matr{A}\) be an invertible \(m \times m\) matrix,
+	\begin{enumerate}[label=(\alph*)]
+		\item If \(\matr{B}_1\) and \(\matr{B}_2\) are \(m \times n\) matrices with \(\matr{AB_1} = \matr{AB_2}\), then \(\matr{B}_1 = \matr{B}_2\)
+		\item If \(\matr{C}_1\) and \(\matr{C}_2\) are \(n \times m\) matrices with \(\matr{C_1A} = \matr{C_2A}\), then \(\matr{C}_1 = \matr{C}_2\)
+	\end{enumerate}
+\end{namedthm*}
+\begin{namedthm*}{Theorem 2.4.7.2 (generalised)}
+	Relationship between singularity of \(\matr{A}\) and the number of solutions of a linear system \(\matr{Ax} = \matr{b}:\)
+	\begin{enumerate}
+		\item \(\matr{A}\) is singular \(\iff \matr{Ax} = \matr{b}:\) has $\infty$ solutions (only case for homogeneous LS) or no solutions
+		\item \(\matr{A}\) is invertible \(\iff \matr{Ax} = \matr{b}:\) has one unique solution (trivial solution for homogeneous LS)
+	\end{enumerate} 
+\end{namedthm*}
+
+\begin{namedthm*}{Definition 2.5.2}
+    Let \(\matr{A} = \left(a_{ij}\right)\) be an \(n \times n\) matrix. Let \(\matr{M}_{ij}\) be an \(\nobreak{(n - 1)\times (n - 1)}\) matrix obtained from \(\matr{A}\) by deleting the \(i\)th row and the \(j\)th column. Then the \textit{determinant} of \(\matr{A}\) is defined as
+    \[
+        \det(\matr{A}) =
+            \begin{cases}
+                a_{11} & \text{if \(n = 1\)} \\
+                a_{11}A_{11} + \cdots + a_{1n}A_{1n} & \text{if \(n > 1\)}
+            \end{cases}
+    \]
+    where
+    \[
+        A_{ij} = (-1)^{i + j} \det\left(\matr{M_{ij}}\right)
+    \]
+    The number \(A_{ij}\) is called the \((i, j)\)\textit{-cofactor} of \(\matr{A}\).
+\end{namedthm*}
+
+\begin{namedthm*}{Theorem 2.5.8}
+    The determinant of a triangular matrix is equal to the product of its diagonal entries.
+\end{namedthm*}
+
+\begin{namedthm*}{Theorem 2.5.12 (added-on)}
+	The determinant of a square matrix is 0 when:
+	\begin{enumerate}
+		\item it has two identical rows, or
+		\item it has two identical columns
+		\item any row/column of its (R)REF is zero
+	\end{enumerate}
+\end{namedthm*}
+
+\begin{namedthm*}{Theorem 2.5.15}
+    Let \(\matr{A}\) be a square matrix. \(k\) is a non-zero constant.
+    \begin{enumerate}
+    	\item \(\matr{A} \xrightarrow{k\vect{R}_i} \matr{B} \Rightarrow \det(\matr{B}) = k\det(\matr{A})\)
+    	\item \(\matr{A} \xrightarrow{\vect{R}_i \leftrightarrow \vect{R}_j} \matr{B} \Rightarrow \det(\matr{B}) = -\det(\matr{A})\)
+    	\item \(\matr{A} \xrightarrow{\vect{R}_i + k\vect{R}_j} \matr{B} \Rightarrow \det(\matr{B}) = \det(\matr{A})\)
+        \item Let \(\matr{E}\) be an elementary matrix of the same size as \(\matr{A}\). Then \(\det(\matr{EA}) = \det(\matr{E})\det(\matr{A})\).
+    \end{enumerate}
+\end{namedthm*}
+
+\begin{namedthm*}{Remark 2.5.18}
+	Since \(\det(\matr{A}\ = \det(A^T)\), theorem 2.5.15 holds if ``rows" are changed to ``columns".
+\end{namedthm*}
+
+\begin{namedthm*}{Theorem 2.5.22}
+	Let \(\matr{A}\) and \(\matr{B}\) are two square matrices of order \(n\) and \(c\) is a scalar. Then
+	\begin{enumerate}
+		\item \(\det(c\matr{A}) = c^n\det(\matr{A})\)
+		\item \(\det(\matr{AB}) = \det(\matr{A})\det(\matr{B})\)
+		\item if \(\matr{A}\) is invertible, \(\det(\matr{A}^-1) = \frac{1}{\det(\matr{A})}\)
+	\end{enumerate}
+\end{namedthm*}
+
+\begin{namedthm*}{Definition 2.5.24}
+	Let \(\matr{A}\) be a square matrix of order \(n\). Then the \textit{(classical) adjoint} of \(\matr{A}\) is the \(n \times n\) matrix
+	\[
+	\adj(\matr{A}) = \left(A_{ij}\right)_{n \times n}^T
+	\]
+	where \(A_{ij}\) is the \((i, j)\)-cofactor of \(\matr{A}\).
+\end{namedthm*}
+
+\begin{namedthm*}{Theorem 2.5.25}
+    If \(\matr{A}\) is invertible, then \(\matr{A}^{-1} = \frac{1}{\det(\matr{A})}\adj(\matr{A})\) (or written as: \(\matr{A}[\adj(\matr{A})] = \det(\matr{A})\matr{I}\)).
+\end{namedthm*}
+
+\begin{namedthm*}{Theorem 2.5.27 (Cramer's Rule)}
+    Suppose \(\matr{A}\vect{x} = \vect{b}\) is a linear system where \(\matr{A}\) is an \(n \times n\) matrix. Let \(\matr{A_i}\) be the matrix obtained from \(\matr{A}\) be replacing the \(i\)th column of \(\matr{A}\) by \(\vect{b}\). If \(\matr{A}\) is invertible, then the system has only one solution
+    \[
+        \vect{x} = \frac{1}{\det(\matr{A})}\begin{pmatrix}\det\left(\matr{A_1}\right) \\ \vdots \\ \det\left(\matr{A_n}\right) \end{pmatrix}
+    \]
+\end{namedthm*}
+
+\begin{namedthm*}{Mixed Notes 1}
+	\(\matr{A}^{-1}\) is able to be computed by:
+	\begin{enumerate}
+		\item Find \(\matr{B}\) s.t. \(\matr{AB} = \matr{I} \lor \matr{BA} = \matr{I}\)
+		\item Find using \textbf{Theorem 2.5.25}
+		\item Find using: \(\begin{pmatrix}[c|c] \matr{A} & \matr{I}\end{pmatrix} \xrightarrow{GJE} \begin{pmatrix}[c|c] \matr{I} & \matr{A}^{-1}\end{pmatrix}\)
+	\end{enumerate} 
+\end{namedthm*}
+
+\begin{namedthm*}{Mixed Notes 2}
+	\(\det(\matr{A})\) is able to be computed by:
+	\begin{enumerate}
+		\item Using \textbf{Theorem 2.5.2}
+		\item Using cross multiplication (for \(2 \times 2\) and \(3 \times 3\) matrices only)
+		\item Doing some ERO (e.g. GE, consider \textbf{Thoerem 2.5.15}) and making it triangular  then using \textbf{Theorem 2.5.8} or making it have properties in \textbf{Theorem 2.5.12}
+		\item Using \textbf{Theorem 2.5.22}
+	\end{enumerate} 
+\end{namedthm*}
+
+\begin{namedthm*}{Mixed Notes 3}
+	Some random notes:
+	\begin{enumerate}
+		\item In \(\mathbb{R}^n\) where \(n \ge 2\), a set with 1 parameter is a line and that with 2 parameters is a space.
+		\item \(\matr{M}^2 + \matr{M} = \matr{I} \Rightarrow \matr{M}(\matr{M} + \textcolor{red}{\matr{I}}) = \matr{I}\) (Don't put that \(\matr{I}\) to be scalar 1!)
+		\item Two matrices have same RREF \(\Leftrightarrow\) They are row equivalent
+		\item In exam, express a matrix in the form \(\matr{A} = (a_{ij})_{m \times n}\). \textbf{DO NOT} use dots form
+		\item When using ERO \(\vect{R}_i = \frac{1}{k}\vect{R}_j\), discuss whether \(k\) is 0 when necessary
+	\end{enumerate}
+\end{namedthm*}
+
+\begin{namedthm*}{Mixed Notes 4}
+	When we are asked to use Gaussian Elimination or Gauss-Jordan Elimination, steps in presentation is important and only these elementary row operations should be used:
+	\begin{enumerate}
+		\item (For GE) \(\vect{R}_i \leftrightarrow \vect{R}_j\), where \(i > j\).
+		\item (For GE) \(\vect{R}_i + k\vect{R}_j\), where \(k \in \mathbb{R} \land i > j\).
+		\item (For GJE) \(\vect{R}_i + k\vect{R}_j\), where \(k \in \mathbb{R} \land i < j\).
+	\end{enumerate}
+\end{namedthm*}
+
+\begin{namedthm*}{Mixed Notes 5}
+	Generally, for (square) matrices \(\matr{A}\) and \(\matr{B}\),
+	\begin{enumerate}
+		\item \(\matr{AB} \ne \matr{BA}\)
+		\item \((\matr{AB})^2 \ne \matr{A}^2\matr{B}^2\)
+		\item \(\matr{AB} = 0 \nRightarrow \matr{A} = 0 \lor \matr{B} = 0\)
+		\item \(\matr{A}^2 = I \nRightarrow \matr{A} = \pm \matr{I}\) (For example: 2 EMs of 2nd type ERO)
+	\end{enumerate}
+\end{namedthm*}
+
+\begin{namedthm*}{Mixed Notes 5}
+	When expanding a row/column with cofactors of the other row/column, 0 will be yielded:
+	\[
+	    \sum_{m=1}^n a_{im}A_{jm} = \sum_{m=1}^n a_{mi}A_{mj} = 0, \text{ for some } i \ne j
+	\]
+	This can be proven by the following steps:
+	\begin{enumerate}
+		\item Consider \(X = \sum_{m=1}^n a_{im}A_{jm}\), known value of \(A_{jm}\) and \(X\) does not depend on values of row \(j\).
+		\item Create a new matrix by replacing \(j\)-th row of \(\matr{A}\) with its \(i\)-th row, named it \(\matr{A'}\). We then have \({a'}_{im} = {a}_{im}\) and \({a'}_{jm} = {a'}_{im}\). At the same time, by (1), \({A'}_{jm} = A_{jm}\)
+		\item Then \(X = \sum_{m=1}^n {a'}_{im}{A'}_{jm} = \sum_{m=1}^n {a'}_{jm}{A'}_{jm} = \det(\vect{A'}) = 0\) since two of the rows of \(\vect(A')\) are the same, by \textbf{Theorem 2.5.12.1}.
+		\item Consider \(\det(\matr{A}) = \det(\matr{A}^T)\) and the above steps \(\sum_{m=1}^n a_{mi}A_{mj} = 0\).
+		\end{enumerate}
+\end{namedthm*}
+
+\section{Euclidean Spaces}
+
+\begin{namedthm*}{Definition 3.2.3}
+    Let \(S = \{\vect{u_1}, \dots, \vect{u_k}\}\) be a set of vectors in \(\mathbb{R}^n\). Then the set of all linear combinations of \(\vect{u_1}, \dots, \vect{u_k}\),
+    \[
+        \{c_1\vect{u_1} + \cdots + c_k\vect{u_k} \mid c_1, \dots, c_k \in \mathbb{R}\}
+    \]
+    is called the \textit{linear span} of \(S\) (or the \textit{linear span} of \(\vect{u_1}, \dots, \vect{u_k}\)) and is denoted by \(\lspan(S)\) (or \(\lspan \{\vect{u_1}, \dots, \vect{u_k} \}\)).
+\end{namedthm*}
+
+\begin{namedthm*}{Discussion 3.2.5}
+	Given \(S = \{\vect{v_1}, \vect{v_2}, \dots, \vect{v_m}\} \subseteq \mathbb{R}^n\}\), show \(\lspan(S) = \mathbb{R}^n\):
+	
+	\medskip
+	\noindent
+	Consider \(\vect{v_i} = \left(v_{i1}, \dots, v_{in}\right)\),
+	\[
+	\begin{pmatrix}
+	\vect{v_{11}} & \dots & \vect{v_{m1}}\\
+	\vdots & \ddots & \vdots\\
+	\vect{v_{1n}} & \dots & \vect{v_{mn}}
+	\end{pmatrix} \xrightarrow{GE} \matr{R}
+	\]
+	\(\lspan(S) = \mathbb{R}^n \iff \matr{R}\) has no zero rows
+\end{namedthm*}
+
+\begin{namedthm*}{Theorem 3.2.7}
+	If \(\lvert S \rvert\ < n\), \(\lspan(S) \ne \mathbb{R}^n\).
+\end{namedthm*}
+
+\begin{namedthm*}{Theorem 3.2.10}
+	Let \(S_1 = \{\vect{u_1}, \dots, \vect{u_k}\}\) and \(S_2 = \{\vect{v_1}, \dots, \vect{v_m}\}\) be subsets of \(\mathbb{R}^n\). Then, \(\lspan(S_1) \subseteq \lspan(S_2) \iff \forall i=1, 2, \dots, k\), \(u_i \in \lspan\{\vect{v_1}, \dots, \vect{v_m}\}\).
+	
+	\medskip
+	\noindent
+	In other words, consider \(\vect{u_i} = \left(u_{i1}, \dots, u_{in}\right)\) and \(\vect{v_i} = \left(v_{i1}, \dots, v_{in}\right)\), \\
+	\[
+	\begin{pmatrix}[ccc|c|c|c]
+	\vect{v_{11}} & \dots & \vect{v_{m1}} & \vect{u_{11}} & \dots & \vect{u_{k1}}\\
+	\vdots & \ddots & \vdots & \vdots & \ddots & \vdots \\
+	\vect{v_{1n}} & \dots & \vect{v_{mn}} & \vect{u_{1n}} & \dots & \vect{u_{kn}}
+	\end{pmatrix} \xrightarrow{GE} \matr{R}
+	\]
+	\(\lspan(S_1) \subseteq \lspan(S_2) \iff \matr{R}\) has its last \textbf{k} columns non-pivot.
+\end{namedthm*}
+
+\begin{namedthm*}{Definition 3.3.2}
+     Let \(V\) be a subset of \(\mathbb{R}^n\). Then \(V\) is called a \textit{subspace} of \(\mathbb{R}^n\) if \(V = \lspan(S)\) where \(S = \{\vect{u_1}, \dots, \vect{u_k}\}\) for some vectors \(\vect{u_1}, \dots, \vect{u_k} \in \mathbb{R}^n \).
+     
+     \medskip
+     \noindent
+     More precisely, \(V\) is called the \textit{subspace spanned} by \(S\) (or the \textit{subspace spanned} by \( \vect{u_1}, \dots, \vect{u_k} \)). We also say that \(S\) \textit{spans} (or \(\vect{u_1}, \dots, \vect{u_k}\) \textit{span}) the subspace \(V\).
+     
+     \medskip
+     \noindent
+     By contraposition, \(V = \lspan(S) \Rightarrow \vect{0} \in V \equiv \vect{0} \notin V \Rightarrow V \ne \lspan(S)\). (\(\ast\) i.e., If \(\vect{0}\) is not in \(V\), \(V\) is not a subspace of \(\mathbb{R}^n\))
+\end{namedthm*}
+
+\begin{namedthm*}{Theorem 3.3.6}
+	If \(V = \{\matr{x} | \matr{Ax} = \matr{0}\}\), \(V\) is a subspace of \(\mathbb{R}^n\).
+\end{namedthm*}
+
+\begin{namedthm*}{Remark 3.3.8}
+    Let \(V\) be a non-empty subset of \(\mathbb{R}^n\). Then \(V\) is a subspace of \(\mathbb{R}^n\) if and only if 
+    \[
+        \text{for all } \vect{u}, \vect{v} \in V \text{ and } c, d\in \mathbb{R},\enspace c\vect{u} + d\vect{v} \in V
+    \]
+    (\(\ast\) This checks whether V is \textbf{closed} under addition and scalar multiplication)
+\end{namedthm*}
+
+\end{justifying}
+
+\end{multicols}
+
+\end{document}

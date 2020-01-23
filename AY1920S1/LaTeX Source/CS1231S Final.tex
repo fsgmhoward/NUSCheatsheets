@@ -1,0 +1,968 @@
+% Edited by Howard Liu
+% Original: https://github.com/ning-y/Cheatsheets/blob/master/src/cs1231-midterms-2018s1.tex
+\documentclass[a4paper]{article}
+\usepackage[
+    a4paper, left=1cm, right=1cm, top=1cm, bottom=1cm, landscape
+]{geometry}
+\input{math_header}
+
+\newcommand{\heading}[1]{{\small\underline{\textbf{#1}}}}
+\newcommand{\subheading}[1]{{\scriptsize\textbf{#1}}}
+
+\begin{document}
+
+\scriptsize                         % Small fonts
+\pagenumbering{gobble}              % No page numbers
+\setlength\parindent{0pt}           % No indents at start of paragraphs
+\setlength{\abovedisplayskip}{3pt}  % Less spacing before equations
+\setlength{\belowdisplayskip}{3pt}  % less spacing after equations
+
+% TITLE %
+\begin{center}
+{\large CS1231(S) Cheatsheet}\\{for Mid-term of AY 19/20 Semester 1, by Howard Liu}
+\end{center}
+
+% BODY %
+\begin{multicols*}{4}
+
+%% Preface %%
+Appendix A of Epp is not covered. Theorems, corollaries, lemmas, etc. not
+mentioned in the lecture notes are marked with an asterisk (*).\\
+
+%% Proofs %%
+\heading{Proofs} \\
+
+\subheading{Basic Notation}
+\begin{itemize}[leftmargin=*] \itemsep -0.5em
+    \item $\mathbb{R}$: the set of all real numbers
+    \item $\mathbb{Z}$: the set of integers
+    \item $\mathbb{N}$: the set of natural numbers (include $0$, i.e. $\mathbb{Z}_{\ge 0}$)
+    \item $\mathbb{Q}$: the set of rationals
+    \item $\exists$:    there exists...
+    \item $\exists!$:   there exists a unique...
+    \item $\forall$:    for all...
+    \item $\in$:        member of...
+    \item $\ni$:        such that...
+    \item $\sim$:       not ...
+\end{itemize}
+
+\subheading{Proof Types}
+\begin{itemize}[leftmargin=*] \itemsep -0.5em
+  \item \textbf{By Construction}: finding or giving a set of directions to
+    reach the statement to be proven true.
+  \item \textbf{By Contraposition}: proving a statement through its logical
+    equivalent contrapositive.
+  \item \textbf{By Contradiction}: proving that the negation of the statement
+    leads to a logical contradiction.
+  \item \textbf{By Exhaustion}: considering each case.
+  \item \textbf{By Mathematical Induction}: proving for a base case, then an
+    induction step.
+    \vspace{-1em} % hackhackhack
+    \begin{enumerate} \itemsep -0.2em
+      \item $P(a)$
+      \item $\forall k \in \mathbb{Z}, k \geq a\;(P(k) \rightarrow P(k+1))$
+      \item $\boldsymbol{\cdot} \forall n \in \mathbb{Z}, n \geq a\;(P(n))$
+    \end{enumerate}
+  \vspace{-0.5em}
+  \item \textbf{By Strong Induction}: mathematical induction assuming $P(k),
+    P(k-1), \cdots, P(a)$ are all true.
+  \item \textbf{By Structural Induction}: MI assuming $P(x)$ is true, prove
+    $P(f(x))$ is true ($f(x)$ is the recursion set rule, i.e. if $x \in S,
+    f(x) \in S$)
+\end{itemize}
+
+\subheading{Order of Operations}
+
+In the ascending order (1 executes first, 3 is the latest, can be overwritten by parenthesis)
+\begin{enumerate}
+	\item \textbf{Negation}: $\sim$ (also represented as $\neg$)
+	\item \textbf{Logic AND \& OR}: $\land$ and $\lor$
+	\item \textbf{Implication}: $\rightarrow$
+\end{enumerate}
+
+\subheading{Universal \& Existential Generalisation}\\
+\textit{`All boys wear glasses'} is written as
+  $$\forall x (\text{Boy}(x) \rightarrow \text{Glasses}(x)) $$
+If conjunction was used, this statement would be falsified by the existence of a
+`non-boy' in the domain of $x$.\\
+
+\textit{`There is a boy who wears glasses'} is written as
+  $$\exists x (\text{Boy}(x) \land \text{Glasses}(x)) $$
+If implication was used, this statement would true even if the domain of $x$ is
+empty.\\
+
+\subheading{Valid Arguments as Tautologies}\\
+All valid arguments can be \textit{restated} as tautologies.\\
+
+\subheading{Rules of Inference}\\
+Modus ponens
+\begin{eqnarray*}
+  &p \rightarrow q \\
+  &p \\
+  &\boldsymbol{\cdot}\; q
+\end{eqnarray*}
+Modus tollens
+\begin{eqnarray*}
+  &p \rightarrow q \\
+  &\sim q \\
+  &\boldsymbol{\cdot}\; \sim p
+\end{eqnarray*}
+Generalization
+\begin{eqnarray*}
+  &p\\
+  &\boldsymbol{\cdot}\; p \lor q
+\end{eqnarray*}
+Specialization
+\begin{eqnarray*}
+  &p \land q\\
+  &\boldsymbol{\cdot}\; p
+\end{eqnarray*}
+Elimination
+\begin{eqnarray*}
+  &p \lor q\\
+  &\sim q\\
+  &\boldsymbol{\cdot}\; p
+\end{eqnarray*}
+Transitivity
+\begin{eqnarray*}
+  &p \rightarrow q\\
+  &q \rightarrow r\\
+  &\boldsymbol{\cdot}\; p \rightarrow r
+\end{eqnarray*}
+Proof by Division into Cases
+\begin{eqnarray*}
+  &p \lor q\\
+  &p \rightarrow r\\
+  &q \rightarrow r\\
+  &\boldsymbol{\cdot}\; r
+\end{eqnarray*}
+Contradiction Rule
+\begin{eqnarray*}
+  &\sim p \rightarrow \textbf{c(ontradiction)}\\
+  &\boldsymbol{\cdot}\; p
+\end{eqnarray*}
+
+\subheading{Universal Rules of Inference}\\
+Only modus ponens, modus tollens, and transitivity have universal versions in
+the lecture notes.\\
+
+\subheading{Implicit Quantification}\\
+The notation $P(x) \implies Q(x)$ means that every element in the truth set of
+$P(x)$ is in the truth set of $Q(x)$, or equivalently, $\forall x, P(x)
+\rightarrow Q(x)$.\\
+
+The notation $P(x) \iff Q(x)$ means that $P(x)$ and $Q(x)$ have identical truth
+sets, or equivalently, $\forall x, P(x) \leftrightarrow Q(x)$.\\
+
+\subheading{Implication Law}\\
+$$p \rightarrow q \equiv \sim p \lor q$$
+
+\subheading{Universal Instantiation}\\
+If some property is true of everything in a set, then it is true of any
+particular thing in the set.\\
+
+\subheading{Universal Generalization}\\
+If $P(c)$ must be true, and we have assumed nothing about $c$, then $\forall x,
+P(x)$ is true.\\
+
+\subheading{Regular Induction}\\
+\begin{eqnarray*}
+  &P(0) \\
+  &\forall k \in \mathbb{N}, P(k) \rightarrow P(k+1) \\
+  & \forall
+\end{eqnarray*}
+
+\subheading{Epp T2.1.1 Logical Equivalences}\\
+Commutative Laws
+  $$ p \land q \equiv q \land p $$
+  $$ p \lor  q \equiv q \lor  p $$
+Associative Laws
+  $$ (p \land q) \land r \equiv p \land (q \land r) $$
+  $$ (p \lor  q) \lor  r \equiv p \lor  (q \lor  r) $$
+Distributive Laws
+  $$ p \land (q \lor  r) \equiv (p \land q) \lor  (p \land r) $$
+  $$ p \lor  (q \land r) \equiv (p \lor  q) \land (p \lor  r) $$
+Identity Laws
+  $$ p \land \textbf{true} \equiv p $$
+  $$ p \lor  \textbf{false} \equiv p $$
+Negation Laws
+  $$ p \lor  \sim p \equiv \textbf{true} $$
+  $$ p \land \sim p \equiv \textbf{false} $$
+Double Negative Law
+  $$ \sim ( \sim p ) \equiv p $$
+Idempotent Laws
+  $$ p \land p \equiv p $$
+  $$ p \lor  p \equiv p $$
+Universal Bound Laws
+  $$ p \lor  \textbf{true} \equiv \textbf{true} $$
+  $$ p \land \textbf{false} \equiv \textbf{false} $$
+De Morgan's Laws
+  $$ \sim ( p \land q ) \equiv \sim p \lor  \sim q $$
+  $$ \sim ( p \lor  q ) \equiv \sim p \land \sim q $$
+Absorption Laws
+  $$ p \lor  (p \land q) \equiv p $$
+  $$ p \land (p \lor  q) \equiv p $$
+Negations of $\textbf{true}$ and $\textbf{false}$
+  $$ \sim \textbf{true} \equiv \textbf{false} $$
+  $$ \sim \textbf{false} \equiv \textbf{true} $$
+
+\subheading{Definition 2.2.1 (Conditional)}\\
+If $p$ and $q$ are statement variables, the conditional of $q$ by $p$ is ``if
+$p$ then $q$" or ``$p$ implies $q$", denoted $p \rightarrow q$. It is false
+when $p$ is true and $q$ is false; otherwise it is true. We call $p$ the
+\textit{hypothesis} (or \textit{antecedent}), and $q$ the \textit{conclusion}
+(or \textit{consequent}).\\
+
+A conditional statement that is true because its hypothesis is false is called
+\textit{vacuously true} or \textit{true by default}.\\
+
+\subheading{Definition 2.2.2 (Contrapositive)}\\
+The contrapositive of $p \rightarrow q$ is $\sim q \rightarrow \sim p$. Note: one will always be equivalent to the other.\\
+
+\subheading{Definition 2.2.3 (Converse)}\\
+The converse of $p \rightarrow q$ is $q \rightarrow p$.\\
+
+\subheading{Definition 2.2.4 (Inverse)}\\
+The inverse of $p \rightarrow q$ is $\sim p \rightarrow \sim q$.\\
+
+\subheading{Definition 2.2.6 (Biconditional)}\\
+The biconditional of $p$ and $q$ is denoted $p \leftrightarrow q$ and is true if
+both $p$ and $q$ have the same truth values, and is false if $p$ and $q$ have
+opposite truth values.\\
+
+\subheading{Definition 2.2.7 (Necessary \& Sufficient)}\\
+``$r$ is sufficient for $s$" means $r \rightarrow s$, ``$r$ is necessary for
+$s$" means $\sim r \rightarrow \sim s$ or equivalently $s \rightarrow r$.\\
+
+\subheading{Definition 2.3.2 (Sound \& Unsound Arguments)}\\
+An argument is called \textit{sound}, iff it is valid and all its premises are
+true.\\
+
+\subheading{Definition 3.1.2 (Universal Statement)}\\
+A \textit{universal statement} is of the form $$\forall x \in D, Q(x)$$ It is
+defined to be true iff $Q(x)$ is true for every $x$ in $D$. It is defined to be
+false iff $Q(x)$ is false for at least one $x$ in D.\\
+
+\subheading{Definition 3.1.3 (Existential Statement)}\\
+A \textit{existential statement} is of the form $$\exists x \in D \text{ s.t. }
+Q(x)$$ It is defined to be true iff $Q(x)$ is true for at least one $x$ in $D$.
+It is defined to be false iff $Q(x)$ is false for all $x$ in $D$.\\
+
+\subheading{Theorem 3.1.6 (Equivalent Forms of Universal and Existential State.)}\\
+By narrowing $\mathcal{U}$ to be the domain $D$ consisting of all values of the variable $x$ that makes $P(x)$ \textbf{true},
+  $$ \forall_{x \in \mathcal{U}}, P(x) \implies Q(x) \equiv \forall_{x \in D}, Q(x) $$
+Similarly,
+  $$ \exists x \text{ s.t. } P(x) \land Q(x) \equiv \exists x \in D \text{ s.t. } Q(x) $$
+
+\subheading{Theorem 3.2.1 (Negation of Universal State.)}\\
+The negation of a statement of the form $$\forall x \in D, P(x)$$ is logically
+equivalent to a statement of the form $$\exists x \in D \text{ s.t. } \sim
+P(x)$$
+
+\subheading{Theorem 3.2.2 (Negation of Existential State.)}\\
+The negation of a statement of the form 
+  $$\exists x \in D \text{ s.t. } P(x)$$
+is logically equivalent to a statement of the form
+  $$\forall x \in D, \sim P(x)$$
+Note: for negation of $\exists!$, consider
+  $$\exists! x \text{ s.t. } P(x) \equiv \exists x \text{ s.t. } (P(x) \land (\forall_{y \in \mathcal{U}} P(y) \rightarrow (y=x)) $$
+
+\subheading{Theorem 3.2.4 (Vacuous Truth of Universal State.)}\\
+In general, a statement of the form
+  $$\forall_{x \in D}, P(x) \rightarrow Q(x) $$
+is called \textbf{vacuously true/true by default} iff $P(x)$ is \textbf{false} for every $x$ in $D$\\
+
+\heading{Sets} \\
+
+\subheading{Definition 6.1.1 (Subsets \& Supersets)}
+
+$S$ is a subset of $T$ if all the elements of $S$ are elements of $T$, denoted
+$S \subseteq T$. Formally, $$S \subseteq T \longleftrightarrow \forall x \in S
+(x \in T)$$
+
+\subheading{Definition 6.2.1 (Empty Set)}
+
+An empty set has no element, and is denoted $\varnothing$ or $\{\}$. Formally,
+where $\mathcal{U}$ is the universal set: $$\forall Y \in \mathcal{U} (Y \not\in
+\varnothing)$$
+
+\subheading{Epp T6.24}
+
+An empty set is a subset of all sets.
+$$\forall S\text{, $S$ is a set, }\varnothing \subseteq S$$
+
+\subheading{Definition 6.2.2 (Set Equality)}
+
+Two sets are equal iff they have the same elements.\\
+
+\subheading{Proposition 6.2.3}
+
+For any two sets $X, Y$, $X$ and $Y$ are subsets of each other iff $X = Y$.
+Formally,
+$$\forall X, Y((X \subseteq Y \land Y \subseteq X) \longleftrightarrow X=Y)$$
+
+\subheading{Epp C6.2.5 (Empty Set is Unique)}
+
+It's what it says.\\
+
+\subheading{Definition 6.2.4 (Power Set)}
+
+The power set of a set $S$ denoted $\mathcal{P}(S)$, or $2^S$; is the set whose
+elements are all possible subsets of $S$. Formally,
+$$\mathcal{P}(S) = \{X\;|\;X\subseteq S\}$$
+
+\subheading{Theorem 6.3.1}
+
+If a set $X$ has $n$ elements, $n \geq 0$, then $\mathcal{P}(X)$ has $2^n$
+elements. \\
+
+\subheading{Definition 6.3.1 (Union)}
+
+Let $S$ be a set of sets. $T$ is the union of sets in $S$, iff each element of
+$T$ belongs to some set in $S$. Formally,
+$$T=\bigcup S = \bigcup_{X\in S} X = \{ y \in \mathcal{U}\;|\;\exists X \in S (y
+\in X)\}$$
+
+\subheading{Definition 6.3.3 (Intersection)}
+
+Let $S$ be a non-empty set of sets. $T$ is the intersection of sets in $S$, iff
+each element of $T$ also belongs to all the sets in $S$. Formally,
+\begin{align*}
+T &= \bigcap S = \bigcap_{X \in S} X \\
+&= \{y \in \mathcal{U}\;|\; \forall X ((X \in S) \rightarrow (y \in X)) \}
+\end{align*}
+
+\subheading{Definition 6.3.5 (Disjoint)}
+
+Let $S, T$ be sets. $S$ and $T$ are disjoint iff $S \cap T = \varnothing$.\\
+
+\subheading{Definition 6.3.6 (Mutually Disjoint)}
+
+Let $V$ be a set of sets. The sets $T \in V$ are mutually disjoint iff every two
+distinct sets are disjoint. Formally,
+$$\forall X, Y \in V (X \neq Y \rightarrow X \cap Y = \varnothing)$$
+
+\subheading{Definition 6.3.7 (Partition)}
+
+Let $S$ be a set, and $V$ a set of non-empty subsets of $S$. Then $V$ is a
+partition of $S$ iff
+\begin{enumerate} \itemsep -0.5em
+	\item The sets in $V$ are mutually disjoint
+	\item The union of sets in $V$ equals $S$
+\end{enumerate}
+
+\subheading{Definition 6.3.8 (Non-symmetric Difference)}
+
+Let $S, T$ be two sets. The (non-symmetric) difference of $S$ and $T$ denoted
+$S-T$ or $S\setminus T$ is the set whose elements belong to $S$ and do not
+belong to $T$. Formally,
+$$S - T = \{y \in \mathcal{U}\;|\;y \in S \land y \not\in T \}$$
+This is analogous to subtraction for numbers.\\
+
+\subheading{Definition 6.3.10 (Set Complement)}
+
+Let $A \subseteq \mathcal{U}$. Then, the complement of A denoted $\overline{A}$ is
+$\mathcal{U}-A$.\\
+
+\subheading{Set Properties}
+
+Let $A, B, C$ be sets, some properties are:
+\begin{itemize}[leftmargin=*] \itemsep -0.3em
+	\item $\bigcup \varnothing = \bigcup_{A \in \varnothing} A = \varnothing$
+	\item $\bigcup \{A\} = A$
+	\item \textbf{Commutative Laws}: $A \cup B = B \cup A$, $A \cap B = B \cap A$
+	\item \textbf{Associative Laws}: $A \cup (B \cup C) = (A \cup B) \cup C$, $A \cap (B \cap C) = (A \cap B) \cap C$
+	\item \textbf{Distributive Laws}: $A \cap (B \cup C) = (A \cap B) \cup (A \cap C)$, $A \cup (B \cap C) = (A \cup B) \cap (A \cup C)$
+	\item \textbf{Identity Laws}: $A \cup \varnothing = A$,  $A \cap \mathcal{U} = A$
+	\item \textbf{Complement Laws}: $A \cup \overline{A} = \mathcal{U}$, $A \cap \overline{A} = \varnothing$
+	\item \textbf{Double Complement Law}: $\overline{(\overline{A})} = A$
+	\item \textbf{Idempotent Laws}: $A \cup A = A$, $A \cap A = A$
+	\item \textbf{Universal Bound Laws}: $A \cup \mathcal{U} = \mathcal{U}$, $A \cap \varnothing = \varnothing$
+	\item \textbf{De Morgan's Laws}: $\overline{A \cup B} = \overline{A} \cap \overline{B}$, $\overline{A \cap B} = \overline{A} \cup \overline{B}$
+	\item \textbf{Adsorption Laws}: $A \cup (A \cap B) = A$, $A \cap (A \cup B) = A$
+	\item \textbf{Set Difference Law}: $A - B = A \cap \overline{B}$
+	\item $\overline{\mathcal{U}} = \varnothing$, $\overline{\varnothing} = \mathcal{U}$
+	\item $A \subseteq B \leftrightarrow A \cup B = B \leftrightarrow A \cap B = A$
+\end{itemize}
+
+
+\heading{Functions} \\
+
+\subheading{Definition 7.1.1 (Function)}
+
+Let $f$ be a relation such that $f \subseteq S \times T$. Then $f$ is a function
+from $S$ to $T$ denoted $f: S\rightarrow T$ iff
+$$\forall x \in S, \exists! y \in T(x\;f\;y)$$
+(Intuitively, this means that every element in $S$ must have exactly one
+`outgoing arrow', \textbf{AND} the `arrow' must land in $T$.)\\
+
+\subheading{Definitions 7.1.[2-5]}
+
+Let $f : S \rightarrow T$ be a function, $x \in S$ and $y \in T$ such that
+$f(x)=y$; $U \subseteq S$, and $V \subseteq T$.\\
+
+$x$ is a pre-image (7.1.2) of $y$.\\
+
+The inverse image of the element (7.1.3) $y$ is the set of all its pre-images,
+i.e. $\{x \in S\;|\;f(x) = y\}$.\\
+
+The inverse image of the set (7.1.4) $V$ is the set that contains all the
+pre-images of all the elements of $V$, i.e.
+$\{x \in S\;|\;\exists y \in V (f(x) = y)\}$.\\
+
+The restriction (7.1.5) of $f$ to $U$ is the set
+$\{(x, y) \in U \times T\;|\;f(x)=y\}$.\\
+
+\subheading{Definition 7.2.1 (Injective, or One-to-one)}
+
+Let $f : S \rightarrow T$ be a function. $f$ is injective (or one-to-one) iff
+$$\forall y \in T, \forall x_1, x_2 \in S (
+(f(x_1) = y\;\land\;f(x_2) = y) \rightarrow x_1 = x_2)$$
+(Intuitively, this means that every element in $T$ has \textbf{at most} one `incoming
+arrow'.)\\
+
+\subheading{Definition 7.2.2 (Surjective, or Onto)}
+
+Let $f : S \rightarrow T$ be a function. $f$ is surjective (or onto) iff
+$$\forall y \in T, \exists x \in S (f(x) = y)$$
+(Intuitively, this means that every element in $T$ has \textbf{at least} one `incoming
+arrow'.)\\
+
+\subheading{Definition 7.2.3 (Bijective)}
+
+A function is bijective (or is a bijection) iff it is injective and
+subjective.\\
+(Intuitively, this means that every element in $T$ has exactly one
+incoming arrow.)\\
+
+\subheading{Definition 7.2.4 (Inverse)}
+
+Let $f : S \rightarrow T$ be a function and let $f^{-1}$ be the inverse relation
+of $f$ from $T$ to $S$. Then $f$ is bijective iff $f^{-1}$ is a function.\\
+(Note: $f^{-1}$ is defined but not necessary a function. When $A \subseteq T$, $f^{-1}(A)$ means finding all the preimages of each image in $A$, and this is not a function if the $f$ is not bijective.)\\
+
+\subheading{Definition 7.3.1 (Composition)}
+
+Let $f : S \rightarrow T$, $g: T \rightarrow U$ be functions. The composition of
+$f$ and $g$ denoted $g \circ f$ is a function from $S$ to $U$.\\
+
+\subheading{Definition 7.3.2 (Identity)}
+
+The identity function on a set $A$, $\mathcal{I}_A$ is defined by,
+$$\forall x \in A(\mathcal{I}_A(x) = x)$$
+
+\subheading{Proposition 7.3.3}
+
+Let $f : A \rightarrow A$ be an injective function of A. Then $f^{-1} \circ f =
+\mathcal{I}_A$.\\
+
+\subheading{Inclusive Map}
+
+Let $B$ be a subset of A. Then function $\iota^A_B: B \rightarrow A; b \mapsto b$ is called the \textbf{inclusive map} of $B$ in $A$
+
+\subheading{Equality of Functions}
+Two functions $f$ and $g$ are \textbf{equal}, denoted $f = g$, iff:
+\begin{itemize}
+	\item the domains of $f$ and $g$ are equal;
+	\item the codomains of $f$ and $g$ are equal;
+	\item $f(x) = g(x)$ for all $x$ in their domains
+\end{itemize}
+
+\subheading{Properties of Composite Functions}
+
+Let $f: A \rightarrow B, g: B \rightarrow C \text{ and } h: C \rightarrow D$ to be functions. Then
+\begin{itemize}
+	\item $h \circ (g \circ f) = (h \circ g) \circ f$
+	\item If $f$ and $g$ are injective, $g \circ f$ is injective.
+	\item If $f$ and $g$ are surjective, $g \circ f$ is surjective.
+	\item If $g \circ f$ is injective, then $f$ is injective.
+	\item If $g \circ f$ is surjective, then $g$ is surjective.
+\end{itemize}
+
+\subheading{Cantor-Bernstein Theorem}
+
+Let  $f: A \rightarrow B, g: B \rightarrow A$ be injective functions. Then there exists a bijective function $h: A \rightarrow B$\\
+
+\heading{Recursion} \\
+
+\subheading{First-order Recurrence Relation}
+
+Let $k, d \in \mathbb{R} with k \ne 0$. Suppose that the sequence $a_1, a_2, \dots$ of integers satisfies
+    $$a_{n+1} = ka_n + d$$
+for all $n \in \mathbb{Z}^+$. Then
+    $$a_n = \begin{cases}
+    k^{n-1}a_1 + \frac{k^{n-1}-1}{k-1}d, & \text{if } k \ne 1 ;\\
+    a_1 + (n-1)d, & \text{if } k = 1
+    \end{cases}$$
+for all $n \in \mathbb{Z}^+$
+
+\subheading{Second-order Recurrence Relation}
+
+Let $s, p \in \mathbb{R} \text{ with } p \ne 0 \text{ and } s^2 \geq -4p$. Suppose that the sequence $a_1, a_2, \dots$ of integers satisfies
+    $$a_{n+2} = sa_{n+1} + pa_n$$
+for all $n \in \mathbb{Z}^+$. Let $\alpha$ and $\beta$ be the (real) roots of the quadratic equation $x^2 - sx - p = 0$. Then
+    $$a_n = \begin{cases}
+    A\alpha^n + B\beta^n, & \text{if } \alpha \ne \beta;\\
+    (Cn + D)\alpha^n, & \text{if } \alpha = \beta
+    \end{cases}$$
+for all $n \in \mathbb{Z}^+$, where $A, B, C, D \in \mathbb{R}$ satisfy
+    $$
+    \begin{cases}
+    A\alpha + B\beta = a_1 \\
+    A\alpha^2 + B\beta^2 = a_2
+    \end{cases}
+    \text{ and }
+    \begin{cases}
+    (C + D)\alpha = a_1 \\
+    (2C + D)\alpha^2 = a_2
+    \end{cases}
+    $$
+    
+\subheading{Recursively Defined Sets}
+
+A recursively defined set consists of following components:
+
+\begin{enumerate}
+	\item \textbf{Base:} A statement that certain object is in the set. (e.g. $3 \in S$)
+	\item \textbf{Recursion:} A collection of rules saying how to form new objects that is in the set from those already known to be in the set. (e.g. $\forall x, y \in S, x + y \in S$)
+	\item \textbf{Restriction:} A statement that no object belong to the set other those from base and recursion.
+\end{enumerate}
+
+\heading{Number Theory} \\
+
+\subheading{Properties (of Numbers)} \\
+Closure, i.e.
+$$\forall x, y \in \mathbb{Z},\;
+x + y \in \mathbb{Z},\text{ and }
+xy \in \mathbb{Z}$$
+Commutativity, i.e.
+$$a+b=b+a\text{ and }ab=ba$$
+Distributivity, i.e.
+$$a(b+c) = ab + ac \text{ and } (b+c)a = ba + ca$$
+Trichotomy, i.e.
+$$(a < b) \oplus (b < a) \oplus (a = b)$$
+(Can be used without proof)\\
+
+\subheading{Definition 1.3.1 (Divisibility)}\\
+If $n$ and $d$ are integers and $d \neq 0$,
+$$ d|n \iff \exists k \in \mathbb{Z} \text{ s.t. } n=dk $$
+We must take note that $k$ can be 0. \\
+
+\subheading{Example/Lemma on Divisibility}\\
+$\forall a, b, c \in \mathbb{Z}$,
+\begin{itemize}[leftmargin=*] \itemsep -0.3em
+	\item $(1 | a) \land (a | a) \land (a | 0)$
+	\item $(a | 1) \rightarrow a = \pm 1$
+	\item $(0 | a) \rightarrow a = 0$
+	\item $(a | b) \leftrightarrow (-a | b) \leftrightarrow (a | -b)$
+	\item $(a | b) \land (b | a) \rightarrow (a = b \lor a = -b)$
+	\item $(a | b) \land (b | c) \rightarrow (a | c)$
+	\item $(a | b) \rightarrow (ac | bc)$
+	\item $(ac | bc) \land (c \ne 0) \rightarrow (a | b)$
+	\item $(a | b) \land (b \ne 0) \rightarrow (\abs{a} \leq \abs{b})$
+\end{itemize}
+
+\subheading{Proposition 1.3.2 (Linear Combination)}
+$$\forall a, b, c \in \mathbb{Z},\;
+a | b \land a | c \rightarrow
+\forall x, y \in \mathbb{Z},\;
+a | (bx + cy)$$
+If $a$ divides $b$ and $c$, then it also divides their linear combination
+$(bx + cy)$.\\
+
+\subheading{$b$-adic Expansion} \\
+Let $b, n \in \mathbb{Z}^+$ with $b \geq 2$. We say that $n$ has a $b$-adic expansion/decomposition if there exist $k \in \mathbb{Z}^+, a_0, a_1, \dots, a_k \in \mathbb{Z}$ with $1 \leq a_k < b$ and $0 \leq a_0, a_1, \dots, a_{k-1} < b$ such that
+$$n = a_0b^0 + a_1b^1 + \dots + a_kb^k$$
+in which case, $a_0b^0 + a_1b^1 + \dots + a_kb^k$ is the $b$-adic expansion of $n$. This expansion is \textbf{unique}\\
+
+\subheading{Representation of Integers (Algorithm for $b$-adic Expansion)}\\
+Given any positive integer $n$ and base $b$, repeatedly apply the
+Quotient-Remainder Theorem to get,
+\begin{eqnarray*}
+	n   &= bq_0 + r_0 \\
+	q_0 &= bq_1 + r_1 \\
+	q_1 &= bq_2 + r_2 \\
+	& \cdots \\
+	q_{m-1} &= bq_m + r_m
+\end{eqnarray*}
+
+The process stops when $q_m = 0$. Eliminating the quotients $q_i$ we get,
+$$ n = r_mb^m + r_{m-1}b^{m-1} + \cdots r_1b + r_0 $$
+
+Which may be represented compactly in base $b$ as a sequence of the digits
+$r_i$,
+$$ n = (r_m r_{m-1} \cdots r_1 r_0)_b $$
+
+
+\subheading{Theorem 4.4.1 (Quotient-Remainder Theorem)}\\
+Given any integer $a$ and any positive integer $b$, there exist unique integers
+$q$ and $r$ such that $$ a = bq + r \text{ and } 0 \leq r < b$$
+
+\subheading{Definition 4.5.1 (Greatest Common Divisor)}\\
+Let $a$ and $b$ be integers, not both zero. The \textit{greatest common divisor}
+of $a$ and $b$, denoted $\mathrm{gcd}(a, b)$, is the integer $d$ satisfying
+
+\begin{enumerate} \itemsep -0.5em
+	\item $d\;|\;a$ and $d\;|\;b$
+	\item $\forall c \in \mathbb{Z}\;((c\;|\;a)\ \land (c\;|\;b) \rightarrow c \leq d)$
+\end{enumerate}
+
+\subheading{Greatest Common Divisor Example}\\
+$\forall a, b \in \mathbb{Z} \land (a \ne 0)$,
+\begin{itemize}[leftmargin=*] \itemsep -0.3em
+	\item $\gcd(a, 0) = \abs{a} = \gcd(a, a)$
+	\item $(a | b) \rightarrow \gcd(a, b) = a$
+	\item $\gcd(a, b)  = \gcd(\abs{a}, \abs{b})$
+\end{itemize}
+
+\subheading{Proposition 4.5.2 (Existence of gcd)}\\
+For any integers $a$, $b$, not both zero, their gcd exists and is unique.\\
+
+\subheading{Theorem 4.5.3 (B\'ezout's Identity)}\\
+Let $a$, $b$ be integers, not both zero, and let $d = \mathrm{gcd}(a, b)$. Then
+there exists integers $x$, $y$ such that $$ax + by = d$$
+
+Or, the gcd of two integers is some linear combination of the said numbers,
+where $x$, $y$ above have multiple solution pairs once a solution pair $(x, y)$
+is found. Also solutions, for any integer $k$,
+
+$$ (x+\frac{kb}{d}, y-\frac{ka}{d}) $$
+
+\subheading{*Epp T8.4.8 (Euclid's Lemma)}\\
+For all $a, b, c \in \mathbb{Z}$, if $\mathrm{gcd}(a, c) = 1$ and $a\;|\;bc$,
+then $a\;|\;b$.\\
+
+\subheading{*Epp Lemma 4.8.2 (modified)}\\
+If $a, b \in \mathbb{Z}^+$, and $q, r \in \mathbb{Z}$ s.t. $r = a - bq$, then
+$$\mathrm{gcd}(a, b)= \mathrm{gcd}(b, r)$$
+
+In particular, we have:
+$$\gcd(a, b) = \gcd(b, a \textbf{ mod } b)$$
+
+\subheading{Euclidean Algorithm}\\
+By applying \textbf{Epp L4.8.2} we can find gcd of $a, b \in \mathbb{Z}$ (not both 0) using the following algorithm:
+
+\begin{enumerate} \itemsep -0.5em
+	\item while not $(a \textbf{ mod } b = 0)$ do
+	\begin{enumerate}[label=\theenumi.\arabic*] \itemsep -0.3em
+		\item $r := a \textbf{ mod } b$
+		\item $a := b$
+		\item $b := r$
+	\end{enumerate}
+    \item enddo
+    \item return $\abs{b}$;
+\end{enumerate}
+
+\subheading{Corollary on GCD}\\
+Let $a, b \in \mathbb{Z}$ (not both 0). We have:
+
+\begin{enumerate} \itemsep -0.5em
+	\item Every common divisor of $a$ and $b$ divides $\gcd(a,b)$
+	\item $\gcd(a,b) = \min\{n \in \mathbb{Z}^+ | \exists x,y\in\mathbb{Z} (n = ax + by)\}$. That is, $\gcd(a,b)$ is the smallest positive integer linear combination of $a$ and $b$.
+\end{enumerate}
+
+\subheading{Proposition 4.5.5}\\
+For any integers $a$, $b$, not both zero, if $c$ is a common divisor of $a$ and
+$b$, then $c\;|\;\mathrm{gcd}(a,b)$.\\
+
+\subheading{Definition 4.2.1 (Prime number)}\\
+\begin{IEEEeqnarray*}{rCl}
+	n\text{ is prime } &\iff& \forall r, s \in \mathbb{Z}^+ \\
+	&&n = rs \rightarrow \\
+	&&(r=1 \land s=n) \lor (r=n \land s=1) \\
+	n\text{ is composite } &\iff& \exists r, s \in \mathbb{Z}^+ \text{ s.t. }\\
+	&&n = rs\;\land \\
+	&&(1 < r < n) \land (1 < s < n)
+\end{IEEEeqnarray*}
+
+\subheading{Proposition 4.2.2}\\
+For any two primes $p$ and $p'$,
+$$p\;|\;p' \rightarrow p = p'$$
+
+\subheading{Theorem 4.2.3}\\
+If $p$ is a prime and $x_1, x_2, \cdots, x_n$ are any integers s.t.
+$p\;|\;x_1x_2\cdots x_n$, then $p\;|\;x_i$ for some $x_i, i \in \{1, 2, \cdots,
+n\}$.\\
+
+\subheading{Fundamental Theorem of Arithmetic}\\
+Given any integer $n > 1$
+\begin{IEEEeqnarray*}{rCl}
+	\exists k                  &\in& \mathbb{Z}^+, \\
+	\exists p_1,p_2,\cdots,p_k &\in& \text{ primes}, \\
+	\exists e_1,e_2,\cdots,e_k &\in& \mathbb{Z}^+,
+\end{IEEEeqnarray*}
+such that $$n=p_1^{e_1} p_2^{e_2} \cdots p_k^{e_k}$$
+and any other expression for $n$ as a product of prime numbers is identical,
+except perhaps for the order in which the factors are written.\\
+
+\subheading{Epp Proposition 4.7.3}\\
+For any $a \in \mathbb{Z}$ and any prime $p$,
+$$ p\;|\;a \rightarrow p \nmid (a+1) $$
+
+\subheading{Epp T4.7.4 (Infinitude of Primes)}\\
+The set of primes is infinite.\\
+
+\subheading{Definition 4.5.4 (Relatively Prime/Coprime)}\\
+Integers $a$ and $b$ are \textit{relatively prime} (or \textit{coprime}) iff
+$\mathrm{gcd}(a,b)=1$.\\
+
+\subheading{Definition 4.3.1 (Lower Bound)}\\
+An integer $b$ is said to be a \textit{lower bound} for a set $X \subseteq
+\mathbb{Z}$ if $b \leq x$ for all $x \in X$.\\
+
+Does not require $b$ to be in $X$.\\
+
+\subheading{Theorem 4.3.2 (Well Ordering Principle)}\\
+If a non-empty set $S \subseteq \mathbb{Z}$ has a lower bound, then $S$ has a
+least element.\\
+
+Note three conditions: $|S| > 0$, $S \subseteq \mathbb{Z}$, and $S$ has lower
+bound.\\
+
+Likewise, if ... upper bound ... has a greatest element.\\
+
+\subheading{Proposition 4.3.3 (Uniqueness of least element)}\\
+If a set $S$ has a least element, then the least element is unique.\\
+
+\subheading{Proposition 4.3.4 (Uniqueness of greatest e.)}\\
+If a set $S$ has a greatest element, then the greatest element is unique.\\
+
+\subheading{Definitoin 4.7.1 (Congruence modulo)}\\
+Let $m, z \in \mathbb{Z}$ and $d \in \mathbb{Z}^+$. We say that $m$ is
+\textit{congruent} to $n$ \textit{modulo} $d$ and write
+
+$$ m \equiv n\ (\mathrm{mod}\; d) $$
+
+iff
+
+$$ d\;|\;(m-n) $$
+
+More concisely,
+
+$$ m \equiv n\ (\mathrm{mod}\; d) \iff d\;|\;(m-n) $$
+
+\subheading{Epp T8.4.1 (Modular Equivalences)}\\
+Let $a, b, n \in \mathbb{Z}$ and $n > 1$. The following statements are all
+equivalent,
+\begin{enumerate} \itemsep -0.5em
+	\item $n\;|\;(a-b)$
+	\item $a \equiv b\ (\mathrm{mod}\; n)$
+	\item $a = b + kn$ for some $k \in \mathbb{Z}$
+	\item $a$ and $b$ have the same non-negative remainder when divided by $n$
+	\item $a\;\mathrm{mod}\;n = b\;\mathrm{mod}\;n$
+\end{enumerate}
+
+\subheading{Epp T8.4.3 (Modulo Arithmetic)}\\
+Let $a, b, c, d, n \in \mathbb{Z}$, $n > 1$, and suppose\\
+
+{\centering
+	$a \equiv c\ (\mathrm{mod}\; n)$ and $b \equiv d\ (\textrm{mod}\; n)$\\
+}
+
+Then
+
+\begin{enumerate} \itemsep -0.5em
+	\item $(a + b) \equiv (c + d)\ (\mathrm{mod}\;n)$
+	\item $(a - b) \equiv (c - d)\ (\mathrm{mod}\;n)$
+	\item $ab \equiv cd\ (\mathrm{mod}\;n)$
+	\item $a^m \equiv c^m\ (\mathrm{mod}\;n)$, for all $m \in \mathbb{Z}^+$
+\end{enumerate}
+
+\subheading{Lemmas on Modulo Congruences}\\
+Let $a, b, c, n \in \mathbb{Z}$, $n > 0$. Suppose that $ac \equiv bc\ (\mathrm{mod}\;n)$. Then
+$$ a \equiv b\ (\mathrm{mod}\;\frac{n}{\gcd(c,n)})$$
+
+Also, $\exists x \in \mathbb{Z} \text{ s.t. } ax \equiv b\ (\mathrm{mod}\;n)$ iff. $\gcd(a,n)|b$.
+
+This means, when we assume $\gcd(a,n)|b$, $\forall x \in \mathbb{Z}$, we have
+$$ax \equiv b\ (\mathrm{mod}\;n) \Leftrightarrow \frac{a}{\gcd(a,n)}x \equiv \frac{b}{\gcd(a,n)} (\mathrm{mod}\;\frac{n}{\gcd(a,n)})$$
+
+\subheading{Epp Corollary 8.4.4}\\
+Let $a, b, c, d, n \in \mathbb{Z}$, $n > 1$, then
+
+$$ ab \equiv [(a\;\mathrm{mod}\;n)(b\;\mathrm{mod}\;n)]\ (\mathrm{mod}\;n) $$
+
+or equivalently,
+
+$$ ab\;\mathrm{mod}\;n = [(a\;\mathrm{mod}\;n)(b\;\mathrm{mod}\;n)]\ \mathrm{mod}\;n $$
+
+In particular, if $m$ is a positive integer, then
+
+$$ a^m \equiv [(a\;\textrm{mod}\;n)^m]\ (\mathrm{mod}\;n) $$
+
+\subheading{Definition 4.7.2 (Multiplicative inv. modulo $n$)}\\
+For any integers $a, n$ with $n > 1$, if an integer $s$ is such that $as \equiv
+1\ (\mathrm{mod}\;n)$, then $s$ is the \textit{multiplicative inverse of $a$
+	modulo $n$}. We may write $s$ as $a^{-1}$.\\
+
+Because the commutative law still applies in modulo arithmetic, we also have
+
+$$a^{-1}a \equiv 1\ (\mathrm{mod}\;n)$$
+
+Multiplicative inverses are not unique. If $s$ is an inverse, then so is $(s +
+kn)$ for any integer $k$.\\
+
+\subheading{Corollary on m. inverse}\\
+Let $a, n \in \mathbb{Z}$ with $n > 0$. Suppose that $a$ and $n$ are coprime and let $a'$ be a multiplicative inverse of $a$ modulo $n$. Then
+$$\forall x \in \mathbb{Z} (ax \equiv b\ (\mathrm{mod}\;n) \Leftrightarrow x \equiv a'b\ (\mathrm{mod}\;n))$$
+
+\subheading{Theorem 4.6.3 (Existence of multiplicative inverse)}\\
+For any integer $a$, its multiplicative inverse modulo $n$ where $n>1$,
+$a^{-1}$, exists iff $a$ and $n$ are coprime.\\
+
+\subheading{Finding the Multiplicative Inverse/Extended Euclidean Algorithm}\\
+For example, to find the multiplicative inverse of $5\ \textrm{mod}\; 18$,
+\begin{IEEEeqnarray*}{rCl}
+	18 = 3 &\times& 5 + 3 \\
+	5 = 1 &\times& 3 + 2 \\
+	3 = 1 &\times& 2 + 1 \\
+	1 = 1 &\times& 1 + 0
+\end{IEEEeqnarray*}
+So
+\begin{IEEEeqnarray*}{rCl}
+	1 &=& 1 \times 1 + 0 = 1 \\
+	&=& 1(3 - 1 \times 2) = 3 - 2  \\
+	&=& 3 - (5 - 3) = 2 \times 3 - 5 \\
+	&=& 2(18 - 3 \times 5) - 5 = 2 \times 18 - 7 \times 5 \\
+	1 - 2 \times 18 &=& -7 \times 5 \\
+	1 - 2 \times 18 &\equiv& -7 \times 5\ (\mathrm{mod}\; 18) \\
+	1 &\equiv& -7 \times 5\ (\mathrm{mod}\; 18)
+\end{IEEEeqnarray*}
+Therefore, we have $5^{-1}\ \textrm{mod}\; 18 = -7$, or equivalently under
+modulo $11$.\\
+
+\subheading{Corollary 4.7.4 (Special case: $n$ is prime)}\\
+If $n=p$ is a prime number, then all integers $a$ in the range $0<a<p$ have
+multiplicative inverses modulo $p$.\\
+
+\subheading{Epp T8.4.9 (Cancellation Law for mod. arith.)}\\
+For all $a, b, c, n \in \mathbb{Z}$, $n>1$, and $a$ and $n$ are coprime,
+
+$$ ab \equiv ac\ (\mathrm{mod}\;n) \rightarrow b \equiv c\ (\mathrm{mod}\;n) $$
+
+\heading{Relations}\\
+
+\subheading{Definition}\\
+A \textbf{relation} $R$ from $A$ to $B$ is a subset of $A \cross B$. Function can be thought as special cases of relations.\\
+
+\textbf{Domain} of $R$ is the set ${a \in A | \exists b \in B aRb}$
+\textbf{Range} of $R$ is the set ${b \in B | \exists a \in A aRb}$\\
+
+\textbf{Inverse} of $R$, denoted $R^{-1}$, is the relation from $B$ to $A$ defined by
+$$ R^{-1} = \{(b,a) \in B \cross A | a R b\}$$
+
+We say that a binary relation $R$ on $A$ is:
+\begin{itemize}
+	\item \textbf{reflexive} iff. $\forall x \in A, xRx$
+	\item \textbf{symmetric} iff. $\forall x,y \in A, (xRy \rightarrow yRx)$
+	\item \textbf{transitive} iff. $\forall x,y,z \in A, (xRy \land yRz \rightarrow xRz)$
+	\item \textbf{an equivalence relation} iff. it satisfies all 3 above
+\end{itemize}
+
+\subheading{Equivalence Classes}\\
+Let $R$ be an equivalence relation on $A$ (assumed non-empty). For each $a \in A$, the equivalence class of $a$ with respect to $R$, denoted ${[a]}$, is the set
+$$ {[a]} = \{x \in A | aRx\} $$
+The set of all equivalence classes of $R$ is denoted as $A/R$.\\
+
+Any two distinct equivalence classes of an equivalence relation are disjoint. Also, $A/R$ is a partition of $A$.\\
+
+Every partition is a set of equivalence classes. That is, let $P \subseteq \mathcal{P}(A)$ be a partition of $A$, there exist a equivalence relation $R$ s.t. $A/R = P$.\\
+
+\subheading{Partial Order}\\
+Keywords: partial order, $\preceq$, Hasse diagram\\
+Refer to Lecture Notes 9 (IX), part II.\\
+
+\heading{Counting and Probability}\\
+
+\subheading{Application to Decimal Expansions of Fractions}\\
+By using pigeonhole principle, we can prove that the decimal expansion of any rational number either terminates or repeats.\\
+
+\subheading{Generalized Pigeonhole Principle}\\
+For any function $f$ from a finite set $X$ with $n$ elements to a finite set $Y$ with $m$ elements and for any positive integer $k$, if for each $y \in Y, f^{-1}(\{y\})$ has at most $k$ elements, then $X$ has at most $km$ elements. In other words, $n \le km$.
+
+\subheading{Repetition Allowed - Combination}
+If order does not matter (C) and repetition is allowed, we use:
+$$\begin{pmatrix}
+k + n - 1 \\
+k
+\end{pmatrix}$$
+
+\subheading{Pascal's Formula}\\
+Suppose $n$ and $r$ are positive integers with $r \leq n$. Then
+$$\begin{pmatrix}n+1\\r\end{pmatrix} = \begin{pmatrix}n\\r-1\end{pmatrix} + \begin{pmatrix}n\\r\end{pmatrix}$$
+
+\subheading{Binomial Theorem}\\
+Given $a, b \in \mathbb{R}$ and $n \in \mathbb{Z}_{\geq 0}$,
+$$(a+b)^n = \sum_{k=0}^n\begin{pmatrix}n\\k\end{pmatrix}a^{n-k}b^k$$
+
+Consider $a=b=1$, we have:
+$$\begin{pmatrix}n\\0\end{pmatrix} + \begin{pmatrix}n\\2\end{pmatrix} + \dots + \begin{pmatrix}n\\n\end{pmatrix} = 2^n$$
+
+\subheading{Linearity of Expectation}\\
+For random variable $X$ and $Y$ \textbf{(which can be dependent)},
+$$E{[X + Y]} = E{[X]} + E{[Y]}$$
+
+\subheading{Conditional Probability}\\
+$$P(A \cap B) = P(B|A) \cdot P(A)$$
+
+\subheading{Bayer's Theorem}\\
+Suppose that a sample space $S$ is a union of mutually disjoint events $B_1, B_2, B_3, \dots, B_n$.
+
+Suppose $A$ is an event in $S$, and suppose $A$ and all $B_i$ have non-zero probabilities. 
+
+If $k$ is an integer with $1 \leq k \leq n$, then
+$$P(B_k|A) = \frac{P(A|B_k) \cdot P(B_k)}{P(A|B_1) \cdot P(B_1) + \dots + P(A|B_n) \cdot P(B_n)}$$
+
+\subheading{Independent Events}\\
+Two events $A$ and $B$ are independent iff. $P(A \cap B) = P(A) \cdot P(B)$.
+
+We can observe that $P(A|B) = P(A)$.\\
+
+We must take note that pairwise independent is different from mutually independent. $A$, $B$ and $C$ are 3 events, they are pairwise independent if they satisfy condition 1-3 below. They are mutually independent if they satisfy all 4.
+\begin{enumerate}
+	\item $P(A \cap B) = P(A) \cdot P(B)$
+	\item $P(A \cap C) = P(A) \cdot P(C)$
+	\item $P(B \cap C) = P(B) \cdot P(C)$
+	\item $P(A \cap B \cap C) = P(A) \cdot P(B) \cdot P(C)$
+\end{enumerate}
+\textbf{Important:} Knowing 1-3 cannot deduct 4 above, and the converse (knowing 4 cannot deduct 1-3)is also applicable.\\
+
+\heading{Graphs and Tree}\\
+
+\subheading{Definitions}
+\begin{itemize}
+	\item \textbf{graph, edges, endpoints, connect, vertices, adjacent} XII-9
+	\item \textbf{directed graph} XII-12
+	\item \textbf{simple graph} XII-19
+	\item \textbf{complete (bipartite) graph} XII-20/21
+	\item \textbf{walk, trail, path, closed walk, circuit/cycle, simple circuit} XII-34
+	\item \textbf{connectedness} XII-37
+	\item \textbf{Euler Circuit} XII-44 (Existence condition: XII-48: Every vertex has positive even degree)
+	\item \textbf{Euler Trail} XII-49 (Existence condition: XII-49)
+	\item \textbf{Hamiltonian Circuit} XII-56 (properties: XII-61)
+	\item \textbf{matrices of graph (calculating walks)} XII-66~
+	\item \textbf{tree, trivial tree} XIII-3
+	\item \textbf{rooted tree, height, level} XIII-23
+	\item \textbf{child, sibling, parent, ancestor, descendent} XIII-24
+	\item \textbf{(full) binary tree} XIII-27
+	\item \textbf{spanning tree} XIII-52
+\end{itemize}
+
+\subheading{Handshake Theorem}\\
+Total degree of $G$ = 2 $\cross$ (the number of edges of $G$)\\
+
+\subheading{Theorem 10.5.4(XIII-19)}\\
+If $G$ is a connected graph with $n$ vertices and $n-1$ edges, then $G$ is a tree.\\
+
+\subheading{Full Binary Tree Theorem}\\
+If $T$ is a full binary tree with $n$ internal vertices, then $T$ has a total of $2k+1$ vertices and has $k+1$ terminal vertices.\\
+
+\subheading{Theorem 10.6.2(XIII-36)}\\
+A binary tree with height $h$ has at most $2^h$ terminal vertices.\\
+
+\subheading{Minimum spanning tree}\\
+Kruskal's Algo (XIII-57): Add edges in order of low weight to high weight\\
+
+Prim's Algo (XIII-62): Choose a starting point, then add edges of the least weight connecting the part of the tree and the part not in the tree 
+\end{multicols*}
+\end{document}
