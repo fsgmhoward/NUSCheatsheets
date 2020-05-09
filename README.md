@@ -6,7 +6,7 @@ The distribution I used is [MiKTex](https://miktex.org/). PDFs are compiled on W
 Some notes, for the sake of convenience, are recorded in formats other than **.tex**
 (e.g.: Microsoft Excel Document). I will try my best to put them in LaTeX format when I have time.
 
-**Feel free to use them if they helps and good luck to you.**
+**Feel free to use them if they help and good luck to you.**
 
 P.S. If there are any bugs prevent you from compiling the source files,
 let me know by raising an issue or submit a pull request.
