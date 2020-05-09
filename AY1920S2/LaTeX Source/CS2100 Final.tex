@@ -1,0 +1,274 @@
+% Author: Howard Liu
+\documentclass[a4paper]{article}
+\usepackage[
+a4paper, left=2cm, right=2cm, top=2cm, bottom=2cm, portrait
+]{geometry}
+\usepackage{multicol}
+\usepackage{ragged2e}
+\usepackage{amsmath}
+
+% STYLE DEFINITION %
+\pagestyle{empty}
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+	{-1ex plus -.5ex minus -.2ex}%
+	{0.5ex plus .2ex}%x
+	{\normalfont\large\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+	{-1explus -.5ex minus -.2ex}%
+	{0.5ex plus .2ex}%
+	{\normalfont\normalsize\bfseries}}
+
+\begin{document}
+	\pagenumbering{gobble}              % No page numbers
+	% TITLE %
+	\begin{center}
+		{\large CS2100 Computer Organisation Cheatsheet}\\{for Final of AY 19/20 Semester 2, by Howard Liu}
+	\end{center}
+
+    \begin{justifying}
+    	\setlength\parindent{0em}           % No indents at start of paragraphs
+    	\setlength\parskip{0.5em}           % Increase spacing between paragraphs
+    	\begin{multicols}{2}
+    		\section{IEEE 754 Floating Point}
+    		
+    		Given a 32-bit single precision IEEE 754 floating point number \textit{A}, we have the three parts:
+    		
+    		\begin{itemize}
+    			\item A[31:31] - Sign bit, 0 for +ve, 1 for -ve;
+    			\item A[30:23] - Exponent bits (8 bits)
+    			\item A[22:0]  - Mantissa bits (24 bits)
+    		\end{itemize}
+    	
+    	    From a decimal form, we can calculate the IEEE 754 representation in the following steps (taking number \textbf{85.125} as an example):
+    	    
+    	    \begin{enumerate}
+    	    	\item Covert integer part and decimal part into binary
+    	    	    \begin{enumerate}
+    	    	      	\item $85 = (1010101)_2$
+    	    	      	\item $.125 = (.001)_2$
+    	    	    \end{enumerate}
+        	    \item We have $1010101.001$ now. Make it only have one bit in the integer part, hence we do right shift for 6 bits. ($1010101.001 = 1.010101001 * 2^6$)
+        	    \item We calculate the exponent bit. For single precision, $\text{exponent} = 127 + \text{power of 2}$ . Hence we have 133 for this example. ($133 = (10000101)_2$)
+        	    \item Put everything together with 0 fills at the back, we have the binary representation in IEEE 754 format:\\
+        	        (0 1000101 010101001 00000000000000)$_2$ = 0x42AA4000
+        	    \item Sometimes numbers cannot be represented precisely in binary (e.g. \textbf{0.3}), we do the binary conversion until we have the full 23-bit Mantissa.
+    	    \end{enumerate}
+        
+        
+            \section{Binary convertion}
+            
+            To convert a decimal point to binary, taking \textbf{0.125} as an example, we do this:
+            
+            \begin{center}
+            	\begin{tabular}{lll}
+            		\hline
+            		Decimal Number & Result & Binary \\
+            		\hline
+            		$0.125 * 2$ & $\textbf{0}.25$ & $0$ \\
+            		$0.25 * 2$ & $\textbf{0}.50$ & $0$ \\
+            		$0.50 * 2$ & $\textbf{1}.00$ & $1$ \\
+            		$0.00 * 2$ & $\textbf{0}.00$ & $0$ \\
+            		\hline
+            	\end{tabular}
+            \end{center}
+       
+            * Binary number is read from top to bottom. In this case, $.125 = (.001)_2$ .
+            
+            
+            \section{Negating Numbers}
+            
+            To negate a binary number, we have
+            \begin{itemize}
+                \item Sign-and-Magnitude: just flip MSB to negate a number ($0001_2 \rightarrow 1001_2$)
+                \item 1s Complement: flip every bits to negate a number ($0001_2 \rightarrow 1110_2$)
+                \item 2s Complement: add 1 to \textbf{LSB} of 1s Complement ($0001.01_2 \rightarrow 1110.10_2 \rightarrow 1110.11_2$)
+            \end{itemize}
+        
+            We can detect overflow if either happens:
+            \begin{itemize}
+                \item +ve add +ve become -ve
+                \item -ve add -ve become +ve
+            \end{itemize}
+        
+            When performing binary addition on \textbf{1s-complement} numbers, if there is a carry out of the MSB, add 1 to the result and dispose the MSB. We do \textbf{NOT} need to do so for addition on \textbf{2s-complement} numbers.
+                        
+            
+            \section{Boolean algebra laws and theorems}
+            
+            Duality: if the AND/OR operators and identity elements 0/1 in a Boolean equation are interchanged, it remains valid (but brackets are to be added when necessary). (e.g. $X + X \cdot Y = X \rightarrow X \cdot (X + Y) = X$)
+            
+            Laws:
+            \begin{itemize}
+                \item Identity: $A + 0 = 0 + A = A$
+                \item Inverse/Complement: $A + A' = 1$
+                \item Commutative: $A + B = B + A$
+                \item Associative: $A + (B + C) = (A + B) + C$
+                \item Distributive: $A + (B \cdot C) = A \cdot B + A \cdot C$
+            \end{itemize}
+        
+            Theorems:
+            \begin{itemize}
+                \item Idempotency: $X + X = X$
+                \item One element/Zero element: $X + 1 = 1$
+                \item Involution: $(X')' = X$
+                \item Absorption 1: $X + X \cdot Y = X$
+                \item Absorption 2: $X + X' \cdot Y = X + Y$
+                \item DeMorgans': $(X + Y)' = X' \cdot Y'$
+                \item Consensus: $X \cdot Y + X' \cdot Z + Y \cdot Z = X \cdot Y + X' \cdot Z$
+            \end{itemize}
+          
+          
+            \section{Flip-flop reference}
+            
+            Characteristic Tables:
+            
+            \begin{multicols}{2}
+                \begin{center}
+                    \begin{tabular}{cc|c}
+                        J & K & Q$^+$ \\
+                        \hline
+                        0 & 0 & Q \\
+                        0 & 1 & 0 \\
+                        1 & 0 & 1 \\
+                        1 & 1 & Q(t)' \\
+                    \end{tabular}
+                    
+                    \begin{tabular}{c|c}
+                        D & Q$^+$ \\
+                        \hline
+                        0 & 0 \\
+                        1 & 1 \\
+                    \end{tabular}
+                
+                    \begin{tabular}{cc|c}
+                        S & R & Q$^+$ \\
+                        \hline
+                        0 & 0 & Q \\
+                        0 & 1 & 0 \\
+                        1 & 0 & 1 \\
+                        1 & 1 & Unpredictable \\
+                    \end{tabular}
+                
+                    \begin{tabular}{c|c}
+                        T & Q$^+$ \\
+                        \hline
+                        0 & Q \\
+                        1 & Q' \\
+                    \end{tabular}
+                \end{center}
+            \end{multicols}
+           
+            Excitation Tables:
+            
+            \begin{multicols}{2}
+                \begin{center}
+                    \begin{tabular}{cc|cc}
+                        Q & Q$^+$ & J & K \\
+                        \hline
+                        0 & 0 & 0 & X \\
+                        0 & 1 & 1 & X \\
+                        1 & 0 & X & 1 \\
+                        1 & 1 & X & 0 \\
+                    \end{tabular}
+                
+                    \begin{tabular}{cc|c}
+                        Q & Q$^+$ & D \\
+                        \hline
+                        0 & 0 & 0 \\
+                        0 & 1 & 1 \\
+                        1 & 0 & 0 \\
+                        1 & 1 & 1 \\
+                    \end{tabular}
+                
+                    D = Q$^+$
+                
+                    \begin{tabular}{cc|cc}
+                        Q & Q$^+$ & S & R \\
+                        \hline
+                        0 & 0 & 0 & X \\
+                        0 & 1 & 1 & 0 \\
+                        1 & 0 & 0 & 1 \\
+                        1 & 1 & X & 0 \\
+                    \end{tabular}
+                
+                    \begin{tabular}{cc|c}
+                        Q & Q$^+$ & T \\
+                        \hline
+                        0 & 0 & 0 \\
+                        0 & 1 & 1 \\
+                        1 & 0 & 1 \\
+                        1 & 1 & 0 \\
+                    \end{tabular}
+                
+                    T = Q $\oplus$ Q$^+$
+                \end{center}
+            \end{multicols}
+            
+            
+            \section{Notes about pipeline}
+            Considering instruction A and B. B is just the instruction executed after A.
+            \begin{itemize}
+                \item A pipeline stage of B will always behind the same stage for A, even if the resource is not occupied and there is no data dependency / control hazard. (e.g. D stage of instruction B cannot be executed at cycle 3, even D is vacant)
+                \begin{center}
+                    \begin{tabular}{c|cccccccc}
+                        Inst & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\
+                        \hline
+                        A    & F &   &   & D & E & M & W &   \\
+                        B    &   & F &   &   & D & E & M & W \\
+                    \end{tabular}
+                \end{center}
+                \item For $N$ instructions, ideal 5-stage pipeline takes $N+2$ cycles to execute.
+                \item Delays introduced when no forwarding, no early branching and no branch prediction.
+                \begin{itemize}
+                    \item Data dependency: \textbf{2 cycles}
+                    \item Control hazard (beq/bne, j): \textbf{3 cycles}
+                \end{itemize}
+                \item Delays introduced when there is forwarding: \textbf{1 cycle} for data dependency after \textbf{lw}.
+                \item Data dependency for \textbf{beq/bne} instruction can lead to delay \textbf{when forwarding and early branching is implemented}. This is because data is required in stage 2 (D), not stage 3 (E), of the branching instruction.
+                \item When branch prediction is wrong, flush everything including the correct ones to be executed. This is especially true when there is \textbf{no early branching}. Considering the following example: assuming not taken is used, but actually A branched to C. C and D is executed once again after everything flushed.
+                \begin{center}
+                    \begin{tabular}{l|cccccccc}
+                        Inst       & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\
+                        \hline
+                        A (beq)    & F & D & E & M & W &   &   &   \\
+                        B          &   & F & D & E & X & X &   &   \\
+                        C          &   &   & F & D & X & X & X &   \\
+                        D          &   &   &   & F & X & X & X & X \\
+                        C (again)  &   &   &   &   & F & D & E & M \\
+                    \end{tabular}
+                \end{center}
+            \end{itemize}
+        
+            
+            \section{Cache}
+            
+            Average Access Time formula:
+            $$ \text{Hit rate} \times \text{Hit time} + (1 - \text{Hit rate}) \times \text{Miss penality}$$
+            
+            
+            \section{Quick reference}
+            
+            if (a $<$ b) \{...\} else \{...\}
+            
+            \begin{center}
+                \begin{tabular}{|l|}
+                    \hline
+                    slt \$t0, \$a, \$b \\
+                    beq \$t0, \$zero, else \\
+                    \hline
+                \end{tabular}
+            \end{center}
+            
+            if (a $>=$ b) \{...\} else \{...\} : flip a and b in the above example.
+            
+            
+            \section{Miscellaneous notes}
+            
+            \begin{itemize}
+                \item Zero-extension and Sign-extension is different especially in the case that the number starts with 1 in binary.
+                \item MIPS does not have \textbf{not} instruction. We use \textbf{nor \$1, \$1, \$zero} to do bitwise not.
+            \end{itemize}
+    	\end{multicols}
+    \end{justifying}
+\end{document}
