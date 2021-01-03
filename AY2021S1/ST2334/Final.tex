@@ -1,0 +1,592 @@
+\documentclass[12pt,landscape]{article}
+\usepackage[landscape]{geometry}
+\input{../../MathHeader}
+
+% Turn off header and footer
+\pagestyle{empty}
+
+% print only section numbers
+\setcounter{secnumdepth}{1}
+
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+
+\begin{document}
+    \raggedright
+    \footnotesize
+    \begin{multicols}{3}
+    % multicol parameters
+    % These lengths are set only within the two main columns
+    %\setlength{\columnseprule}{0.25pt}
+    \setlength{\premulticols}{1pt}
+    \setlength{\postmulticols}{1pt}
+    \setlength{\multicolsep}{1pt}
+    \setlength{\columnsep}{2pt}
+    
+    \begin{flushleft}
+        \large{
+            \underline{MA1521 Cheat Sheet} \\
+            \texttt{by Howard Liu} \\
+            AY2019/20 Semester 1
+        }
+    \end{flushleft}
+
+    \section{Basics of Probability}
+    
+    \subsection{1-34 Operation of Events}
+    Refer to CS1231S page 2 column 2 \textbf{"Set Properties"}.
+    
+    \subsection{1-107 Binomial Coefficient}
+    \begin{enumerate}
+        \item ${n \choose r} = {n \choose n-r}$ for $r = 0, 1, \dots, n$
+        \item ${n \choose r} = {n-1 \choose r} + {n-1 \choose r-1}$ for $1 \leq r \leq n$
+        \item ${n \choose r} = 0$ for $r < 0$ or $r > n$
+    \end{enumerate}
+
+    \subsection{1-128 Axioms of Probability}
+    For each event $A$ of the sample space $S$ we assume that a number $Pr(A)$, which is called the \textbf{probability} of the event $A$, is defined and satisfies the following three axioms:
+    \begin{enumerate}
+        \item $0 \leq Pr(A) \leq 1$
+        \item $Pr(S) = 1$
+        \item if $A_1$, $A_2$, $\dots$ are \textbf{mutually exclusive} events (that is, $A_i \cap A_j = \emptyset$ when $i \neq j$), then
+            $$ Pr(\bigcup\limits_{i = 1}^{\infty} A_i) = \sum_{i = 1}^{\infty} Pr(A_i) $$
+    \end{enumerate}
+    
+    \subsection{1-141 Probability Properties}
+    For any two events $A$ and $B$,
+        $$ Pr(A \cup B) = Pr(A) + Pr(B) - Pr(A \cap B) $$
+    
+    \subsection{1-144 The Inclusion-Exclusion Principle}
+    $ Pr(\bigcup\limits_{i = 1}^{n} A_i) = \sum_{i=1}^{n} Pr(A_i) - \sum_{i=1}^{n-1} \sum_{j=i+1}^{n} Pr(A_i \cap A_j) + \sum_{i=1}^{n-2} \sum_{j=i+1}^{n-1} \sum_{k=j+1}^{n} Pr(A_i \cap A_j \cap A_k) - \dots + (-1)^{n+1} Pr(\bigcap\limits_{i = 1}^{n} A_i) $
+    
+    \subsection{1-194 Conditional Probability}
+    The conditional probability of $B$ given $A$, is defined as
+    $$ Pr(B|A) = \frac{Pr(A \cap B)}{Pr(A)} \text{ , if } Pr(A) \ne 0 $$
+    
+    If events $B_1, B_2$ are \textbf{mutually exclusive} events, we have
+    $$ Pr(B_1 \cup B_2 | A) = Pr(B_1|A) + Pr(B_2|A) $$
+    
+    \subsection{1-216 Multiplication Rule}
+    If we have 3 events $A$, $B$ and $C$, we have
+    $$ Pr(A \cap B \cap C) = Pr(A) Pr(B|A) Pr(C|A \cap B) $$
+    providing that $Pr(A \cap B) > 0$
+    
+    \subsection{1-243 Bayer's Theorem}
+    $$ Pr(A|B) = \frac{Pr(A) Pr(B|A)}{Pr(B)} $$
+    
+    \subsection{1-271 Independent Events}
+    Two events $A$ and $B$ are independent iff.
+    $$ Pr(A \cap B) = Pr(A) Pr(B) $$
+    
+    \subsection{1-273 Properties of Independent Events}
+    \begin{enumerate}
+        \item $Pr(A|B) = Pr(A)$ and $Pr(B|A) = Pr(B)$
+        \item When two events (each with probability greater than 0) are \textbf{independent}, they cannot be \textbf{mutually exclusive}. Vice versa.
+        \item The sample space $S$ and the empty set $\emptyset$ are independent of any events.
+        \item If $A \subset B$, then $A$ and $B$ are dependent unless $B = S$.
+        \item Properties of independence cannot be shown on a Venn diagram.
+        \item If $A$ and $B$ are independent, so are $A$ and $B'$, $A'$ and $B$, $A'$ and $B'$.
+    \end{enumerate}
+    
+    \subsection{1-288 Pairwise and Mutually Independence}
+    Mutually independence implies pairwise independence. However, the \textbf{reverse} does not hold - pairwise independence does not imply mutually independence.
+    
+    
+    \section{Concepts of Random Variables}
+    
+    \subsection{2-12 Equivalent Events}
+    Two events $A$ and $B$ are equivalent iff. \textbf{$A$ consists of all sample points, $s$, in $S$ for which $X(s) \in B$}.
+    
+    \subsection{2-22 Probability Function}
+    \label{2-22}
+    The probability of $X = x_i$ denoted by $f(x_i)$ must satisfy the following two conditions
+    \begin{enumerate}
+        \item $f(x_i) \geq 0$ for all $x_i$.
+        \item $\sum_{i = 1}^{\infty} f(x_i) = 1$.
+    \end{enumerate}
+    
+    \subsection{2-44 Probability Density Function}
+    \label{2-44}
+    For any $c$ and $d$ s.t. $c < d$,
+        $$ Pr(c \leq X \leq d) = \int_{c}^{d}f(x)dx $$
+    Note: for any specified value of $X$, say $x_0$, we have $Pr(X = x_0) = Pr(x_0 \leq X \leq x_0) = \int_{x_0}^{x_0} f(x)dx = 0$
+    
+    \subsection{2-60 Cumulative Distribution Function}
+    For c.d.f, we have definition $F(x) = Pr(X \leq x)$.
+    
+    If it is discrete random variable, then
+        $$ F(x) = \sum_{t \leq x} f(t) = \sum_{t \leq x} Pr(X = t) $$
+    If it is continuous random variable, then
+        $$ F(x) = \int_{-\infty}^{x} f(t)dt $$
+    Remark: $F(x)$ is non-decreasing.
+
+    \subsection{2-64 Derive p.f and p.d.f from c.d.f}
+    For a continuous random variable,
+        $$ f(x) = \frac{dF(x)}{dx} $$
+    if the derivative exists.
+
+    Also, we have $Pr(a \neq X \neq b) = Pr(a < X \neq b) = F(b) - F(a)$ for CRV.
+
+    \subsection{2-87 Expected Values (Mean)}
+    For DRV, we define the \textbf{mean or expected value} of $X$, denoted by $E(X)$ or $\mu_X$ as:
+        $$ \mu_X = E(X) = \sum_{x} x f_X(x) $$
+    Remark: $E(X)$ does not necessary to be a value of $X$.
+
+    For CRV, it is defined as:
+        $$ \mu_X = E(X) = \int_{-\infty}^{\infty} x f_X(x) dx $$
+    Remark: Expectation of a RV exists provided the sum or integral exists.
+    
+    \subsection{2-103 Expectation of a Function of a RV}
+    For DRV and CRV respectively,
+    \begin{enumerate}
+        \item $E[g(X)] = \sum_x g(x)f_X(x)$
+        \item $E[g(X)] = \int_{\infty}^{\infty} g(x)f_X(x)dx$
+    \end{enumerate}
+    Special Case: $V(X)$ below and \textbf{k-th moment of X} which is $E(X^k)$
+
+    \subsection{2-104 Variance}
+    When $g(x) = (X - \mu_X)^2$, $E(g(x))$ is called the \textbf{variance} of X.
+        $$ \sigma_X^2 = V(X) = E[(X - \mu_X)^2] $$
+    
+    \textbf{Remarks}:
+    \begin{enumerate}
+        \item $V(X) \geq 0$
+        \item $V(X) = E(X^2) - [E(X)]^2$
+        \item Its principle square root is called \textbf{standard deviation}.
+    \end{enumerate}
+
+    \subsection{2-122 Properties of Expectation}
+    When $a$ and $b$ are constants,
+    \begin{enumerate}
+        \item $E(aX + b) = aE(X) + b$
+        \item $V(aX + b) = a^2V(X)$
+    \end{enumerate}
+    
+    \subsection{2-137 Chebyshev's Inequality}
+    Let $X$ be a random variable (DRV or CRV) with $E(X) = \mu$ and $V(X) = \sigma^2$, for any positive
+    number $k$, we have:
+        $$ Pr(\abs{X - \mu} \geq k\sigma) \leq \frac{1}{k^2} $$
+    Alternatively,
+        $$ Pr(\abs{X - \mu} \leq k\sigma) \leq 1 - \frac{1}{k^2} $$
+    Remarks: This applies for \textbf{all} distribution with finite mean and variance. Only a boundary
+    is given and there is no guarantee that actual value is close to this boundary.
+
+    
+    \section{2D RV}
+    
+    \subsection{3-10 Joint p.f./p.d.f for DRVs}
+    \begin{enumerate}
+        \item $f_{X,Y}(x_i, y_i) \geq 0$
+        \item $\sum_{i = 1}^{\infty} \sum_{j = 1}^{\infty} f_{X,Y}(x_i, y_i) = 1$
+    \end{enumerate}
+
+    \subsection{3-21 Joint p.f./p.d.f for CRVs}
+    \begin{enumerate}
+        \item $f_{X,Y}(x,y) \geq 0$ for all $(x, y) \in R_{X,Y}$
+        \item $\int\int_{(x,y) \in R_{X,Y}} f_{X,Y}(x,y)dxdy = 1$
+    \end{enumerate}
+    
+    \subsection{3-30 Marginal Probability}
+    For DRV:
+        $$ f_X(x) = \sum_y f_{X,Y}(x,y) \text{ and } f_Y(y) = \sum_x f_{X,Y}(x,y) $$
+    For CRV:
+        $$ f_X(x) = \int_{-\infty}^{\infty} f_{X,Y}(x,y)dy \text{ and } f_Y(x) = \int_{-\infty}^{\infty} f_{X,Y}(x,y)dx $$
+    
+    \subsection{3-41 Conditional Distribution of 2D RV}
+    Conditional distribution of Y \textbf{fiven that $X = x$} is given by:
+        $$ f_{Y|X}(y|x) = \frac{f_{X,Y}(x,y)}{f_X(x)} \text{ , if } f_X(x) > 0 $$
+    Remarks: All requirements for 1D p.f/p.d.f still applies (see \nameref{2-22} and \nameref{2-44} above).
+
+    \subsection{3-72 Uniformly Distributed}
+    When we say $X$ and $Y$ are uniformly distributed over some area, it means that $f_{X,Y}$ is a constant
+    within this boundary. We can let it be k, and use summation/integration in 3-10 or 3-21 to find this value.
+
+    \subsection{3-84 Independent 2D RVs}
+    Two RVs are said to be independent iff.
+        $$ f_{X,Y}(x,y) = f_X(x)f_Y(y) \text{ , for all } x,y $$
+    
+
+    \subsection{3-108 Expectation for 2D RVs}
+    The expectation of $g(X,Y)$ is defined as
+        $$
+            E[g(X,Y)] = \begin{cases}
+                \sum_x \sum_y g(x,y)f_{X,Y}(x,y) \text{ , for DRVs} \\
+                \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} g(x,y)f_{X,Y}(x,y) dxdy \text{ , for CRVs}
+            \end{cases}
+        $$
+
+    \subsection{3-109 Covariance}
+    When $g(X,Y) = (X - \mu_X)(Y - \mu_Y)$, it becomes the definition of \textbf{covariance} between two RVs.
+        $$ Cov(X,Y) = E[(X - \mu_X)(Y - \mu_Y)] $$
+    
+    Remarks ($a,b,c,d$ are constants):
+    \begin{enumerate}
+        \item $Cov(X,Y) = E(XY) - \mu_X\mu_Y$
+        \item If $X$ and $Y$ are \textbf{independent}, then $Cov(X,Y) = 0$. However, the reverse is not true.
+        \item $Cov(aX+b, cX+d) = acCov(X,Y)$
+        \item $V(aX+bY) = a^2V(X) + b^2V(Y) + 2abCov(X,Y)$
+    \end{enumerate}
+
+    \subsection{3-112 Correlation Coefficient}
+    The \textbf{Correlation Coefficient} of $X$ and $Y$, denoted by $Cor(X,Y)$, $\rho_{X,Y}$ or $\rho$, is defined by:
+        $$ \rho_{X,Y} = \frac{Cov(X,Y)}{\sqrt{V(X)}\sqrt{V(Y)}} $$
+    
+    Remarks:
+    \begin{enumerate}
+        \item $-1 \leq \rho \leq 1$
+        \item $\rho$ is a measure of the \textbf{degree if linear relationship} between $X$ and $Y$.
+        \item If $X$ and $Y$ are independent, then $\rho = 0$. However, the reverse is not true. 
+    \end{enumerate}
+    
+
+    \section{Special Probability Distributions}
+
+    \subsection{4-4 Discrete Uniform Distribution}
+    All $k$ random variables all have the same probability. Hence, we have the p.f.:
+        $$ f_X(x) = \frac{1}{k} \text{ for } x = x_1, x_2, \dots, x_k $$
+    and 0 otherwise.
+
+    \textbf{Mean and variance}:
+    \begin{itemize}
+        \item $\mu = \frac{1}{k} \sum_{i=1}^k x_i$
+        \item $\sigma^2 = \frac{1}{k}\sum_{i=1}^k (x_i - \mu)^2$ or
+            $\sigma^2 = \frac{1}{k}(\sum_{i=1}^k x_i^2) - \mu^2$
+    \end{itemize}
+
+    \subsection{4-10 Bernoulli Distribution}
+    There are only two outcomes, 0 and 1. We have p.f.:
+        $$ f_X(x) = p^x(1-p)^{1-x} \text{ , } x = 0,1 $$
+    where $p$ is a parameters and $0 < p < 1$; 0 otherwise.
+
+    \textbf{Mean and variance}:
+    \begin{itemize}
+        \item $\mu = p$
+        \item $\sigma^2 = p(1-p) = pq$
+    \end{itemize}
+
+    \subsection{4-20 Binomial Distribution}
+    For an RV $X$ having a \textbf{binomial distribution}, it can be seen as the sum of
+    $n$ \textbf{independent Bernoulli trials}:
+        $$ X = Y_1 + Y_2 + \dots + Y_n \text{ , where $Y_i$ has Bern. Dist. with p} $$
+    Then we have its p.f.:
+        $$ f_X(x) = {n \choose x}p^x(1-p)^{n-x} = {n \choose q}p^x q^{n-x} $$
+    
+    \textbf{Mean and variance}:
+    \begin{itemize}
+        \item $\mu = np$
+        \item $\sigma^2 = p(1-p) = npq$
+    \end{itemize}
+    
+    \subsection{4-39 Negative Binomial Distribution}
+    NBD interests in the $k$-th success occurs on the $x$-th trial. We have p.f.:
+        $$ Pr(X = x) = f_X(x) = {x-1 \choose k-1} p^k q^{x-k} $$
+    For $x = k, k+1, k+2, \dots$
+
+    \textbf{Mean and variance}:
+    \begin{itemize}
+        \item $\mu = \frac{k}{p}$
+        \item $\sigma^2 = \frac{(1-p)k}{p^2}$
+    \end{itemize}
+
+    \subsection{4-51 Poisson Distribution}
+    This describes the number of success $X$ occuring \textbf{during a given time interval or in a speficied region}.
+
+    \textbf{Properties}:
+    \begin{enumerate}
+        \item $X$ in one time interval or region is \textbf{independent} of those in other \textbf{disjoint} time
+            interval or region of space.
+        \item $f_X(x)$ during a \textbf{very short time or in a very small region} is proportional to the length
+            of the time interval or the size of the region.
+        \item $f_X(x)$ for $x > 1$ is negligible in the condition of (2) above.
+    \end{enumerate}
+
+    \textbf{P.F.}:
+        $$ f_X(x) = \frac{e^{-\lambda}\lambda^x}{x!} \text{ for } x = 0, 1, 2, 3, \dots $$
+    where $\lambda$ is the average number of successes occuring in the given time interval or specified region.
+
+    \textbf{Mean and variance}:
+    \begin{itemize}
+        \item $\mu = \lambda$
+        \item $\sigma^2 = \lambda$
+    \end{itemize}
+
+    \subsection{4-73 Poisson Approximation to Binomial D.}
+    If $X \sim B(n, p)$, when $n \to \infty$ and $p \to 0$ in such a way that $\lambda = np$ remains
+    constant as $n \to \infty$, then $X$ will have a approximate Poisson distribution:
+        $$ \lim_{p \to 0, n \to \infty} Pr(X = x) = \frac{e^{-np}(np)^x}{x!} $$
+    Remark: If $p$ is close to 1, we interchange what we defined as success and failure to get a $p$ close to 0.
+
+    \subsection{4-81 Continuous Uniform Distribution}
+    When $X \sim Uniform(a, b)$, its p.d.f. graph will be a rectangle with base $a$ to $b$ inclusive and height $1/(b-a)$.
+
+    \textbf{Mean and variance}:
+    \begin{itemize}
+        \item $\mu = \frac{a+b}{2}$
+        \item $\sigma^2 = \frac{1}{12}(b-a)^2$
+    \end{itemize}
+
+    \subsection{4-90 Exponential Distribution}
+    P.D.F of $X$ having this distribution:
+        $$ f_X(x) = \alpha e^{-ax} \text{ for } x > 0 $$
+    Note: $\int_{-\infty}^{\infty} f(x)dx = 1$
+
+    \textbf{Mean and variance}:
+    \begin{itemize}
+        \item $\mu = \frac{1}{\alpha}$
+        \item $\sigma^2 = \frac{1}{\alpha^2}$
+    \end{itemize}
+
+    \textbf{No Memory Property}:
+        $$ Pr(X > s + t | X > s) = Pr(X > t) $$
+    Example: Probability a bulb lasts for \textbf{next} 1 month after using it for 12 months is the
+    same as that for it to last for the 1st 1 month as brand new.
+
+    \subsection{4-105 Normal Distribution}
+        $$ f_X(x) = \frac{1}{\sqrt{2\pi}\sigma} \exp(-\frac{(x-\mu)^2}{2\sigma^2}), -\infty < x < \infty $$
+    
+    \textbf{Properties}:
+    \begin{enumerate}
+        \item Its graph is bell-shaped and symmetrical about $x = \mu$
+        \item Maximum point occurs at $x = \mu$ with $f(x) = \frac{1}{\sqrt{2\pi}\sigma}$
+        \item The curve approaches the $x$ axis asymptotically when going to either direction
+        \item Total area under the curve is 1
+        \item Two curves with same $\sigma$ will have same shape (with different center if $\mu$ is different)
+        \item When $\sigma$ increases, the curve flattens (reverse: the curve sharpens)
+    \end{enumerate}
+
+    \textbf{Mean and variance}:
+    \begin{itemize}
+        \item $E(X) = \mu$
+        \item $V(X) = \sigma^2$
+    \end{itemize}
+    where $\mu$ and $\sigma^2$ are the parameters of the distribution.
+
+    \subsection{4-110 Std. Normal Distribution}
+    If $X$ has a normal distribution,
+        $$ Z = \frac{X-\mu}{\sigma} $$
+    has a \textbf{standardized normal distribution}, where $E(Z) = 0$ and $V(Z) = 1$.
+
+    \subsection{4-132 Normal Approx. to Binomial D.}
+    If $X \sim B(n,p)$, we have $\mu = np$ and $\sigma^2 = np(1-p)$. Then as $n \to \infty$,
+        $$ Z = \frac{X-np}{\sqrt{npq}} \text{ is approx. } \sim N(0, 1) $$
+    
+    \subsection{4-136 Continuity Correction}
+    This applies to normal approx. to $B(n,p)$. Known, $0 \leq X \leq n$:
+    \begin{enumerate}
+        \item $Pr(X = k) \approx Pr(k - \frac{1}{2} < X < k + \frac{1}{2})$
+        \item \begin{itemize}
+            \item $Pr(a \leq X \leq b) \approx Pr(a - \frac{1}{2} < X < b + \frac{1}{2})$
+            \item $Pr(a < X \leq b) \approx Pr(a + \frac{1}{2} < X < b + \frac{1}{2})$
+            \item $Pr(a \leq X < b) \approx Pr(a - \frac{1}{2} < X < b - \frac{1}{2})$
+            \item $Pr(a < X < b) \approx Pr(a + \frac{1}{2} < X < b - \frac{1}{2})$
+        \end{itemize}
+        \item $Pr(X \leq c) = Pr(0 \leq X \leq c) \approx Pr(-\frac{1}{2} < X < c + \frac{1}{2})$
+        \item $Pr(X > c) = Pr(c < X \leq n) \approx Pr(c + \frac{1}{2} < X < n + \frac{1}{2})$
+    \end{enumerate}
+
+    
+    \section{Sampling and Sampling Distributions}
+
+    \subsection{5-12 Sampling from a Finite Population}
+    From a population of size $N$, drawing $n$ samples. If no replacement, each sample has probability off
+    $\frac{1}{_NC_n}$ being chosen. If there is replacement, $\frac{1}{N^n}$.
+
+    \subsection{5-31 Sampling Distribution of $\bar{X}$}
+    For random samples of size $n$ from infinite population or finite one with replacement having population
+    mean $\mu$ and population standard deviation $\sigma$, sampling distribution of $\bar{X}$:
+        $$ \mu_{\bar{X}} = \mu_X \text{ and } \sigma_{\bar{X}^2} = \frac{\sigma_X^2}{n} $$
+    That is,
+        $$ E(\bar{X}) = E(X) \text{ and } V(\bar{X}) = \frac{V(X)}{n} $$
+    
+    \textbf{Law of Large Number}:
+    When population have a finite $\sigma^2$, as the sample size increases, probability that sample mean differs
+    from population mean goes to 0.
+
+    \subsection{5-37 Central Limit Theorem}
+    The \textbf{sample distribution} of $\bar{X}$ is approximately normal with mean $\mu$ and variance $\sigma^2/n$
+    if $n$ is sufficiently large (say, $\geq 30$).
+
+    If $X$ is originally normally distributed, $\bar{X}$ is normally distributed regardless the size of $n$.
+
+    \subsection{5-52 Sampling Distribution of $\bar{X_1} - \bar{X_2}$}
+    If independent samples of sizes $n_1$ and $n_2$ (each $\geq 30$) are drawn from two populations, with means
+    $\mu_1, \mu_2$ and variances $\sigma^2_1, \sigma^2_2$,
+        $$ \bar{X_i} - \bar{X_2} \text{ approx. } \sim N(\mu_1 - \mu_2, \frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}) $$
+    
+    \subsection{5-59 Chi-square Distribution}
+    If $Y$ is an RV and it has p.d.f.:
+        $$ f_Y(y) = \frac{1}{2^{n/2}\Gamma(n/2)} y^{n/2-1} e^{-y/2} \text{ , for } y > 0 $$
+    and 0 otherwise, $Y$ is defined to have a \textbf{Chi-square distribution with n degrees of freedom}, denoted by
+    $ Y \sim \chi^2(n)$. $n$ is a positive integer.
+
+    \textbf{Mean and variance}:
+    \begin{itemize}
+        \item $\mu = n$
+        \item $\sigma^2 = 2n$
+    \end{itemize}
+
+    \textbf{Summation}:
+    For independent $Y_1 \sim \chi^2(n_1), Y_2 \sim \chi^2(n_2), \dots$, $\sum_{i = 1}^k Y_i \sim \chi^2(\sum_{i = 1}^k n_i)$.
+
+    \subsection{5-62 Conversion to Chi-Square D.}
+    \begin{enumerate}
+        \item If $X \sim N(0,1)$, then $X^2 = \chi^2(1)$.
+        \item If $X \sim N(\mu, \sigma^2)$, then $[(X-\mu)/\sigma]^2 \sim \chi^2(1)$.
+        \item When there are $n$ random samples from a normal population, define
+            $$ Y = \sum_{i=1}^n \frac{(X_i - \mu)^2}{\sigma^2} $$
+            then $Y \sim \chi^2(n)$.
+    \end{enumerate}
+
+    \subsection{5-67 Sample Variance}
+        $$ S^2 = \frac{1}{n-1} \sum_{i=1}^n (X_i - \bar{X})^2 $$
+    
+    \subsection{5-68 Sample Variance and Chi-sq.}
+    If $S^2$ is from samples from a \textbf{normal} population having variance $\sigma^2$, then
+        $$ \frac{(n-1)S^2}{\sigma^2} \sim \chi^2 (n-1) $$
+    
+    \subsection{5-69 The T-distribution}
+    Suppose \textbf{independent} RVs $Z \sim N(0,1)$ and $U \sim \chi^2(n)$, and let
+        $$ T = \frac{Z}{\sqrt{U/n}} $$
+    then the RV $T$ follows \textbf{the t-distribution with $n$ degrees of freedom}. That is,
+        $$ T \sim t(n) $$
+    
+    \textbf{Properties}:
+    \begin{enumerate}
+        \item The graph of t-distribution is symmetrical about $y$-axis, and is very close to that
+            of the standard normal distribution.
+        \item $\lim_{n \to \infty} f_T(t) = f_Z(t)$
+    \end{enumerate}
+
+    \textbf{Mean and variance}:
+    \begin{itemize}
+        \item $E(T) = 0$
+        \item $V(T) = n/(n-2)$ for $n > 2$
+    \end{itemize}
+
+    \subsection{5-80 The F-distribution}
+    Let $U \sim \chi^2(n_1)$ and $V \sim \chi^2(n_2)$, then
+        $$ F = \frac{U/n_1}{V/n_2} $$
+    is called a $F$ distribution with $(n_1,n_2)$ degrees of freedom.
+
+    \textbf{Mean and variance}:
+    \begin{itemize}
+        \item $E(X) = n_2/(n_2 - 2)$ with $n_2 > 2$
+        \item $V(X) = \frac{2n_2^2(n_1 + n_2 - 2)}{n_1(n_2-2)^2(n_2-4)}$ for $n_2 > 4$
+    \end{itemize}
+
+    Remark: If $F \sim F(n,m)$, then $1/F ~ F(m,n)$.
+
+
+    \section{Estimation Based on Normal Distribution}
+
+    \subsection{6-11 Interval Estimation of $\mu$}
+    Suppose $\sigma^2$ is known. Let
+        $$ \hat{\Theta}_L = \bar{X} - 2\frac{\sigma}{\sqrt{n}} \text{ and } \hat{\Theta}_U = \bar{X} + 2\frac{\sigma}{\sqrt{n}} $$
+    then we have an interval estimator of $\mu$:
+        $$ (\bar{X} - 2\frac{\sigma}{\sqrt{n}}, \bar{X} + 2\frac{\sigma}{\sqrt{n}}) $$
+    
+    \subsection{6-12 Unbiased Estimator}
+    A statictic $\hat{\Theta}$ is said to be an \textbf{unbiased estimator} of the parameter $\theta$ if:
+        $$ E(\hat{\Theta}) = \theta $$
+    
+    \textbf{Examples}:
+    $\bar{X}$ is an unbiased estimator of $\mu$ and $S^2$ is an unbiased estimator of $\sigma^2$.
+
+    \subsection{6-17 Interval Estimation}
+    We seek a random interval $(\hat{\Theta}_L, \hat{\Theta}_U)$ containing $\theta$ with a given probability
+    $1 - \alpha$. That is,
+        $$ Pr(\hat{\Theta}_L < \theta < \hat{\Theta}_U) = 1-\alpha $$
+    and this is called \textbf{a $(1-\alpha)100\%$ confidence interval} for $\theta$.
+
+    \subsection{6-22 Known Variance Case}
+    \label{6-22}
+    When population
+    \begin{enumerate}
+        \item has known variance and,
+        \item is normal or $n$ is sufficiently large (CLT)
+    \end{enumerate}
+    , we can have the interval given by
+        $$ (\bar{X} - z_{\alpha/2} \frac{\sigma}{\sqrt{n}} < \mu < \bar{X} + z_{\alpha/2} \frac{\sigma}{\sqrt{n}}) $$
+    and the size of error can be given by
+        $$ Pr(\abs{\bar{X} - \mu} < z_{\alpha/2} \frac{\sigma}{\sqrt{n}}) = 1 - \alpha $$
+
+    \subsection{6-27 Margin of Error}
+    \label{6-27}
+    Let $e$ denote the \textbf{margin of error}. We want:
+        $$ Pr(\abs{\bar{X} - \mu} \leq e) \geq 1 - \alpha $$
+    For a given margin of error $e$, the sample size is given by
+        $$ n \geq (z_{\alpha/2} \frac{\sigma}{e}) $$
+
+    \subsection{6-32 Unknown Variance Case}
+    \label{6-32}
+    It needs to satisfy:
+    \begin{enumerate}
+        \item unknown population variance
+        \item the population is \textbf{normal or very closed to normal}
+        \item the sample size is \textbf{small}
+    \end{enumerate}
+    , then we let
+        $$ T = \frac{\bar{X} - \mu}{S / \sqrt{n}} \sim t_{n-1} $$
+    Hence,
+        $$ Pr(-t_{n-1;\alpha/2} < T < t_{n-1;\alpha/2}) = 1 - \alpha $$
+    Or:
+        $$ Pr(\bar{X} - t_{n-1;\alpha/2}\frac{S}{\sqrt{n}} < \mu < \bar{X} + t_{n-1;\alpha/2}\frac{S}{\sqrt{n}}) = 1 - \alpha $$
+
+    \subsection{6-36 Unknown Variance with Large $n$}
+    When $n$ is large, we simply replace $sigma$ with $S$ in the section~\nameref{6-22} above.
+
+    \subsection{6-43 CI for independent $\bar{X}_1 - \bar{X}_2$}
+    $X_1$ and $X_2$ have to be independent. We simply replace:
+    \begin{itemize}
+        \item $\bar{X}$ with $\bar{X}_1 - \bar{X}_2$
+        \item $\mu$ with $\mu_1 - \mu_2$
+        \item $\frac{\sigma}{\sqrt{n}}$ with $\sqrt{\frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}}$
+    \end{itemize}
+    in the section~\nameref{6-22} and~\nameref{6-27} above.
+
+    \subsection{6-56 Unknown but Equal Variance}
+    Conditions are the same as~\nameref{6-32} above. Let $\sigma_1 = \sigma_2 = \sigma$. Then, $\sigma^2$ can be
+    estimated by the pooled variance:
+        $$ S_p^2 = \frac{(n_1-1)S_1^2 + (n_2-1)S_2^2}{n_1+n_2-2} $$
+    Then, substituting $S_p^2$ for $\sigma^2$, we get this statistic:
+        $$ T = \frac{(\bar{X}_1 - \bar{X}_2) - (\mu_1 - \mu_2)}{\sqrt{S_p^2(\frac{1}{n_1} + \frac{1}{n_2})}} \sim t_{n_1+n_2-2} $$
+    Hence, let
+        $$ d = t_{n_1+n_2-2;\alpha/2} S_p \sqrt{\frac{1}{n_1} + \frac{1}{n_2}} $$
+    We have the confidence interval be:
+        $$ (\bar{X}_1 - \bar{X}_2) - d < \mu_1 - \mu_2 < (\bar{X}_1 - \bar{X}_2) + d $$
+    
+    \subsection{6-64 Unknown but Equal Variance with Large $n$}
+    Replace $t_{n_1+n_2-2;\alpha/2}$ by $z_{\alpha/2}$ in the above formula.
+
+    \subsection{6-70 CI for paired data}
+    Observations in two samples made from the \textbf{same individual} are related and hence form a pair.
+    Consider $d_i = x_i - y_i$ of paired observations. We assume $d$ is normal and we then have:
+        $$ \bar{d} = \frac{1}{n}\sum_{i=1}^n d_i $$
+    and point estimate of $\sigma_D^2$:
+        $$ S_D^2 = \frac{1}{n-1}\sum_{i=1}^n (d_i - \bar{d})^2 $$
+    Hence we have the CI for $d$:
+        $$ \bar{d} - t_{n-1;\alpha/2}(\frac{S_D}{\sqrt{n}}) < \mu_D < \bar{d} + t_{n-1;\alpha/2}(\frac{S_D}{\sqrt{n}}) $$
+    
+    \subsection{6-73 CI for paired data with large $n$}
+    For \textbf{sufficiently large} sample, we can replace $t_{n-1;\alpha/2}$ by $z_{\alpha/2}$ above.
+
+    \subsection{6-78 CI for variances}
+    Consider $X_1, X_2, \dots, X_n$ from (approximate) $N(\mu, \sigma^2)$ distribution. Then a point estimator of $\sigma^2$:
+        $$ S^2 = \frac{1}{n-1}\sum_{i=1}^{n}(X_i-\bar{X})^2 = \frac{1}{n-1}(\sum_{i=1}^{n}X_i^2-n\bar{X}^2) $$
+    We have CI when $\mu$ is known:
+        $$ \frac{\sum_{i=1}^n(X_i-\mu)^2}{\chi^2_{n;\alpha/2}} < \sigma^2 < \frac{\sum_{i=1}^n(X_i-\mu)^2}{\chi^2_{n;1-\alpha/2}} $$
+    When $\mu$ is unknown:
+        $$ \frac{(n-1)S^2}{\chi^2_{n-1;\alpha/2}} < \sigma^2 < \frac{(n-1)S^2}{\chi^2_{n-1;1-\alpha/2}} $$
+    Remark: When we want to find CI for $\sigma$, we just square root both sides in the above inequalities.
+    
+    \subsection{6-90 CI for Ratio of Two Variances}
+    Consider samples $X_1, X_2, \dots, X_{n_1}$ from a $N(\mu_1, \sigma_1^2)$ population, and
+    samples $Y_1, Y_2, \dots, Y_{n_2}$ from a $N(\mu_2, \sigma_2^2)$ population, and $\mu_1, \mu_2$ are \textbf{unknown}.
+    Then we have the CI:
+        $$ \frac{S_1^2}{S_2^2}\frac{1}{F_{n_1-1,n_2-1;\alpha/2}} < \frac{\sigma_1^2}{\sigma_2^2} < \frac{S_1^2}{S_2^2}F_{n_2-1,n_1-1;\alpha/2} $$
+
+
+
+    \end{multicols}
+\end{document}

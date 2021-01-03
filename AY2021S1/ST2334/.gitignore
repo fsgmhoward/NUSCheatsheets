@@ -1,0 +1,7 @@
+# Ignore everything
+*
+
+# Except for the LaTeX source files and compiled pdf files (and this .gitignore)
+!.gitignore
+!*.tex
+!*.pdf

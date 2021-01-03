@@ -27,6 +27,10 @@ to the **PDF Compiled** folders.
 - LAJ1201 [Vocabulary List](AY1920S2/Miscellaneous/LAJ1201%20Vocabulary%20List.xlsx)
 - GEH1031 [Miscellaneous Notes](AY1920S2/Miscellaneous/GEH1031%20Miscellaneous%20Notes.docx)
 
+### AY 2020/21 Semester 1
+- LAJ2201 [Grammar Note & Vocab List](AY2021S1/LAJ2201)
+- ST2334 [Final](AY2021S1/ST2334)
+
 ## License
 All LaTeX source files and documents are licensed under [the MIT License](LICENSE).
 
